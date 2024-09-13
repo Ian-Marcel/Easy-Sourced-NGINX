@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-## Resolvendo dependências
-sudo apt install -y nala && \
-    sudo nala install -y libxml2;
-## Obtendo pacote nginx e modulos não oficiais
+    ## Obtendo pacote nginx e modulos não oficiais
 mkdir -pv tmp && cd tmp || exit && \
     wget https://nginx.org/download/nginx-1.26.2.tar.gz && \
     wget https://zlib.net/zlib-1.3.1.tar.gz && \
@@ -66,8 +63,6 @@ mkdir -pv tmp && cd tmp || exit && \
     --with-stream_ssl_module \
     --with-stream_ssl_preread_module \
     --add-module=../nginx-dav-ext-module \
-    --with-cc-opt='-g -O2 -ffile-prefix-map=/data/builder/debuild/nginx-1.26.2/debian/debuild-base/nginx-1.26.2=. -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC' \
-    --with-ld-opt='-Wl,-z,relro -Wl,-z,now -Wl,--as-needed -pie';
 ## Compilando NGINX
 make && sudo make install;
 ## Criando serviço para nginx
