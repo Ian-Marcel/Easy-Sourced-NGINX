@@ -1,12 +1,33 @@
 #!/usr/bin/env bash
 
-    ## Obtendo pacote nginx e modulos não oficiais
-mkdir -pv tmp && cd tmp || exit && \
-    wget https://nginx.org/download/nginx-1.26.2.tar.gz && \
-    wget https://zlib.net/zlib-1.3.1.tar.gz && \
-    wget https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.44/pcre2-10.44.tar.gz && \
-    wget https://github.com/openssl/openssl/releases/download/openssl-3.3.2/openssl-3.3.2.tar.gz && \
-    git clone https://github.com/arut/nginx-dav-ext-module.git && \
+set -euo pipefail  # Sair em caso de erro e falha em variáveis ​​não definidas
+
+# Especificando variáveis iniciais
+mkdir -pv tmp assets;
+
+ESNx=$(pwd) && \
+    export ESNx;
+
+cd assets && \
+ESNx_ASTS=$(pwd) && \
+    export ESNx_ASTS && \
+        cd "$ESNx" || exit;
+
+cd tmp && \
+    ESNx_TMP=$(pwd) && \
+        export ESNx_TMP && \
+            cd "$ESNx" || exit ;
+
+# Verificando variáveis
+if [ "$(pwd)" = "$ESNx" ] && [ "$ESNx_ASTS" = "$ESNx/assets" ] && [ "$ESNx_TMP" = "$ESNx/tmp" ]; then
+    echo "good to go!" && cd "$ESNx_TMP" || exit
+else
+    echo "Falha na verificação do diretório" >&2
+    exit 1
+fi
+
+## Obtendo pacote nginx e modulos não oficiais
+    wget -i "$ESNx_ASTS/Dependencies.txt" && \
     tar -zxf nginx-1.26.2.tar.gz && \
         rm nginx-1.26.2.tar.gz && \
     tar -zxf zlib-1.3.1.tar.gz && \
@@ -16,14 +37,15 @@ mkdir -pv tmp && cd tmp || exit && \
     tar -zxf openssl-3.3.2.tar.gz && \
         rm openssl-3.3.2.tar.gz && \
     cd nginx-1.26.2 || exit;
+
 ## Construindo a configuração NGINX
 ./configure \
+    --with-zlib="$ESNx_TMP/zlib-1.3.1" \
+    --with-pcre="$ESNx_TMP/pcre2-10.44" \
+    --with-pcre-jit \
+    --with-openssl="$ESNx_TMP/openssl-3.3.2" \
     --prefix=/etc/nginx \
     --sbin-path=/usr/sbin/nginx \
-    --with-zlib=../zlib-1.3.1 \
-    --with-pcre=../pcre2-10.44 \
-    --with-pcre-jit \
-    --with-openssl=../openssl-3.3.2 \
     --modules-path=/usr/lib/nginx/modules \
     --conf-path=/etc/nginx/nginx.conf \
     --error-log-path=/var/log/nginx/error.log \
@@ -62,9 +84,12 @@ mkdir -pv tmp && cd tmp || exit && \
     --with-stream_realip_module \
     --with-stream_ssl_module \
     --with-stream_ssl_preread_module \
-    --add-module=../nginx-dav-ext-module \
+    --add-module=../nginx-dav-ext-module ;
+
 ## Compilando NGINX
-make && sudo make install;
+make
+sudo make install;
+
 ## Criando serviço para nginx
-sudo cp ../../assets/nginx.service
+sudo cp "$ESNx_ASTS/nginx.service" /usr/lib/systemd/system/ && \
     sudo systemctl daemon-reload
