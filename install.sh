@@ -93,4 +93,9 @@ sudo make install;
 
 ## Criando serviço para nginx
 sudo cp "$ESNx_ASTS/nginx.service" /usr/lib/systemd/system/ && \
-    sudo systemctl daemon-reload
+    sudo systemctl daemon-reload && \
+        sudo systemctl enable --now nginx.service;
+
+## Excluindo cache
+cd "$ESNx" && \
+    rm -rf tmp;
