@@ -29,7 +29,7 @@ fi
 ## Obtendo pacote nginx, dependências e modulos não oficiais
     sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx;
 
-    wget -i "$ESNx_ASTS/Dependencies.txt" && \
+    wget -i "$ESNx_ASTS/packages.txt" && \
         tar -zxf nginx-1.26.2.tar.gz && \
             rm nginx-1.26.2.tar.gz && \
     git clone https://github.com/arut/nginx-dav-ext-module.git;
