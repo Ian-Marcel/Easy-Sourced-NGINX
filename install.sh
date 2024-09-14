@@ -40,10 +40,10 @@ fi
 
 ## Construindo a configuração NGINX
 ./configure \
-    --with-zlib=../zlib-1.3.1 \
-    --with-pcre=../pcre2-10.44 \
+    --with-zlib="$ESNx_TMP/zlib-1.3.1" \
+    --with-pcre="$ESNx_TMP/pcre2-10.44" \
     --with-pcre-jit \
-    --with-openssl=../openssl-3.3.2 \
+    --with-openssl="$ESNx_TMP/openssl-3.3.2" \
     --prefix=/etc/nginx \
     --sbin-path=/usr/sbin/nginx \
     --modules-path=/usr/lib/nginx/modules \
@@ -84,7 +84,7 @@ fi
     --with-stream_realip_module \
     --with-stream_ssl_module \
     --with-stream_ssl_preread_module \
-    --add-module=../nginx-dav-ext-module ;
+    --add-module="$ESNx_TMP/nginx-dav-ext-module" ;
 
 ## Compilando NGINX
 make
