@@ -9,8 +9,8 @@ ESNx=$(pwd) && \
     export ESNx;
 
 cd assets && \
-ESNx_ASTS=$(pwd) && \
-    export ESNx_ASTS && \
+ESNx_ASSETS=$(pwd) && \
+    export ESNx_ASSETS && \
         cd "$ESNx" || exit;
 
 cd tmp && \
@@ -19,7 +19,7 @@ cd tmp && \
             cd "$ESNx" || exit ;
 
 # Verificando variáveis
-if [ "$(pwd)" = "$ESNx" ] && [ "$ESNx_ASTS" = "$ESNx/assets" ] && [ "$ESNx_TMP" = "$ESNx/tmp" ]; then
+if [ "$(pwd)" = "$ESNx" ] && [ "$ESNx_ASSETS" = "$ESNx/assets" ] && [ "$ESNx_TMP" = "$ESNx/tmp" ]; then
     echo "good to go!" && cd "$ESNx_TMP" || exit
 else
     echo "Falha na verificação do diretório" >&2
@@ -27,14 +27,17 @@ else
 fi
 
 ## Obtendo pacote nginx, dependências e modulos não oficiais
-    sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx;
 
-    wget -i "$ESNx_ASTS/packages.txt" && \
-        tar -zxf nginx-1.26.2.tar.gz && \
-            rm nginx-1.26.2.tar.gz && \
-    git clone https://github.com/arut/nginx-dav-ext-module.git;
+# sudo apt -y install libpcre3 libpcre3-dev zlib1g zlib1g-dev;
 
-    cd nginx-1.26.2 || exit;
+sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx;
+
+wget -i "$ESNx_ASSETS/packages.txt" && \
+    tar -zxf nginx-1.26.2.tar.gz && \
+        rm nginx-1.26.2.tar.gz && \
+git clone https://github.com/arut/nginx-dav-ext-module.git;
+
+cd nginx-1.26.2 || exit;
 
 ## Construindo a configuração NGINX
 ./configure \
@@ -86,12 +89,12 @@ sudo make install;
 
 ## Finalizando instalação
 # Criando serviço para nginx
-sudo cp "$ESNx_ASTS/nginx.service" /usr/lib/systemd/system/ && \
+sudo cp "$ESNx_ASSETS/nginx.service" /usr/lib/systemd/system/ && \
     sudo systemctl daemon-reload && \
         sudo systemctl enable --now nginx.service;
 # Adicionando nginx ao grupo "www-data"
 sudo usermod -aG www-data nginx && \
-    sudo systemctl enable --now nginx.service;
+    sudo systemctl restart nginx.service;
 
 ## Excluindo cache
 cd "$ESNx" && \
