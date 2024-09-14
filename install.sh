@@ -28,14 +28,15 @@ fi
 
 ## Obtendo pacote nginx e modulos não oficiais
     wget -i "$ESNx_ASTS/Dependencies.txt" && \
-    tar -zxf nginx-1.26.2.tar.gz && \
-        rm nginx-1.26.2.tar.gz && \
-    tar -zxf zlib-1.3.1.tar.gz && \
-        rm zlib-1.3.1.tar.gz && \
-    tar -zxf pcre2-10.44.tar.gz && \
-        rm pcre2-10.44.tar.gz && \
-    tar -zxf openssl-3.3.2.tar.gz && \
-        rm openssl-3.3.2.tar.gz && \
+        tar -zxf nginx-1.26.2.tar.gz && \
+            rm nginx-1.26.2.tar.gz && \
+        tar -zxf zlib-1.3.1.tar.gz && \
+            rm zlib-1.3.1.tar.gz && \
+        tar -zxf pcre2-10.44.tar.gz && \
+            rm pcre2-10.44.tar.gz && \
+        tar -zxf openssl-3.3.2.tar.gz && \
+            rm openssl-3.3.2.tar.gz && \
+    git clone https://github.com/arut/nginx-dav-ext-module.git && \
     cd nginx-1.26.2 || exit;
 
 ## Construindo a configuração NGINX
