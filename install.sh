@@ -26,25 +26,18 @@ else
     exit 1
 fi
 
-## Obtendo pacote nginx e modulos não oficiais
+## Obtendo pacote nginx, dependências e modulos não oficiais
+    sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx;
+
     wget -i "$ESNx_ASTS/Dependencies.txt" && \
         tar -zxf nginx-1.26.2.tar.gz && \
             rm nginx-1.26.2.tar.gz && \
-        tar -zxf zlib-1.3.1.tar.gz && \
-            rm zlib-1.3.1.tar.gz && \
-        tar -zxf pcre2-10.44.tar.gz && \
-            rm pcre2-10.44.tar.gz && \
-        tar -zxf openssl-3.3.2.tar.gz && \
-            rm openssl-3.3.2.tar.gz && \
-    git clone https://github.com/arut/nginx-dav-ext-module.git && \
+    git clone https://github.com/arut/nginx-dav-ext-module.git;
+
     cd nginx-1.26.2 || exit;
 
 ## Construindo a configuração NGINX
 ./configure \
-    --with-zlib="$ESNx_TMP/zlib-1.3.1" \
-    --with-pcre="$ESNx_TMP/pcre2-10.44" \
-    --with-pcre-jit \
-    --with-openssl="$ESNx_TMP/openssl-3.3.2" \
     --prefix=/etc/nginx \
     --sbin-path=/usr/sbin/nginx \
     --modules-path=/usr/lib/nginx/modules \
@@ -85,16 +78,20 @@ fi
     --with-stream_realip_module \
     --with-stream_ssl_module \
     --with-stream_ssl_preread_module \
-    --add-module="$ESNx_TMP/nginx-dav-ext-module" ;
+    --add-module=../nginx-dav-ext-module ;
 
 ## Compilando NGINX
 make
 sudo make install;
 
-## Criando serviço para nginx
+## Finalizando instalação
+# Criando serviço para nginx
 sudo cp "$ESNx_ASTS/nginx.service" /usr/lib/systemd/system/ && \
     sudo systemctl daemon-reload && \
         sudo systemctl enable --now nginx.service;
+# Adicionando nginx ao grupo "www-data"
+sudo usermod -aG www-data nginx && \
+    sudo systemctl enable --now nginx.service;
 
 ## Excluindo cache
 cd "$ESNx" && \
