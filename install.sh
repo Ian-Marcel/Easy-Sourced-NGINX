@@ -1,30 +1,30 @@
 #!/usr/bin/env bash
 
-set -euo pipefail  # Sair em caso de erro e falha em variáveis ​​não definidas
+set -euo pipefail # Sair em caso de erro e falha em variáveis ​​não definidas
 
 ## Especificando variáveis iniciais
-mkdir -pv tmp assets;
+mkdir -pv tmp assets
 
-ESNx=$(pwd) && \
-    export ESNx;
+ESNx=$(pwd) &&
+    export ESNx
 
-cd assets && \
-ESNx_ASSETS=$(pwd) && \
-    export ESNx_ASSETS && \
-        cd "$ESNx" || exit;
+cd assets &&
+    ESNx_ASSETS=$(pwd) &&
+    export ESNx_ASSETS &&
+    cd "$ESNx" || exit
 
-cd tmp && \
-    ESNx_TMP=$(pwd) && \
-        export ESNx_TMP && \
-            cd "$ESNx" || exit ;
+cd tmp &&
+    ESNx_TMP=$(pwd) &&
+    export ESNx_TMP &&
+    cd "$ESNx" || exit
 
 # Verificando se lsb_release está instalado
-if ! command -v lsb_release &> /dev/null; then
+if ! command -v lsb_release &>/dev/null; then
     echo "Comando lsb_release NÃO ENCONTRADO. Por favor, INSTALE-O PRIMEIRO!" >&2
     exit 1
 fi
 
-DISTRO=$(lsb_release -i | awk '{print $3}') && \
+DISTRO=$(lsb_release -i | awk '{print $3}') &&
     export DISTRO
 
 ### Verificando variáveis
@@ -40,25 +40,25 @@ fi
 echo "Instalando dependências, é necessário acesso ao root!"
 echo "Sistema:"
 
-if  [ "$DISTRO" = "Debian" ] || [ "$DISTRO" = "Ubuntu" ]; then
+if [ "$DISTRO" = "Debian" ] || [ "$DISTRO" = "Ubuntu" ]; then
     echo " Debian-based ( Debian, Ubuntu, ... )"
-        sudo apt update
-        sudo apt -y install libpcre3 libpcre3-dev zlib1g zlib1g-dev
-elif [ "$DISTRO" = "Fedora" ] ; then
+    sudo apt update
+    sudo apt -y install libpcre3 libpcre3-dev zlib1g zlib1g-dev
+elif [ "$DISTRO" = "Fedora" ]; then
     echo " Fedora-based ( Fedora, RHEL, ... )"
-        sudo dnf install pcre pcre-devel zlib zlib-devel
+    sudo dnf install pcre pcre-devel zlib zlib-devel
 fi
 
-sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx;
+sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
 
 echo "Dependências satisfeitas"
 
-wget -i "$ESNx_ASSETS/packages.txt" && \
-    tar -zxf nginx-1.26.2.tar.gz && \
-        rm nginx-1.26.2.tar.gz && \
-git clone https://github.com/arut/nginx-dav-ext-module.git;
+wget -i "$ESNx_ASSETS/packages.txt" &&
+    tar -zxf nginx-1.26.2.tar.gz &&
+    rm nginx-1.26.2.tar.gz &&
+    git clone https://github.com/arut/nginx-dav-ext-module.git
 
-cd nginx-1.26.2 || exit;
+cd nginx-1.26.2 || exit
 
 ## Construindo a configuração NGINX
 ./configure \
@@ -102,21 +102,21 @@ cd nginx-1.26.2 || exit;
     --with-stream_realip_module \
     --with-stream_ssl_module \
     --with-stream_ssl_preread_module \
-    --add-module=../nginx-dav-ext-module ;
+    --add-module=../nginx-dav-ext-module
 
 ## Compilando NGINX
 make
-sudo make install;
+sudo make install
 
 ## Finalizando instalação
 # Criando serviço para nginx
-sudo cp "$ESNx_ASSETS/nginx.service" /usr/lib/systemd/system/ && \
-    sudo systemctl daemon-reload && \
-        sudo systemctl enable --now nginx.service;
+sudo cp "$ESNx_ASSETS/nginx.service" /usr/lib/systemd/system/ &&
+    sudo systemctl daemon-reload &&
+    sudo systemctl enable --now nginx.service
 # Adicionando nginx ao grupo "www-data"
-sudo usermod -aG www-data nginx && \
-    sudo systemctl restart nginx.service;
+sudo usermod -aG www-data nginx &&
+    sudo systemctl restart nginx.service
 
 ## Excluindo cache
-cd "$ESNx" && \
-    rm -rf tmp;
+cd "$ESNx" &&
+    rm -rf tmp
