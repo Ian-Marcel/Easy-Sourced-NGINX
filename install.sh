@@ -2,7 +2,7 @@
 
 set -euo pipefail  # Sair em caso de erro e falha em variáveis ​​não definidas
 
-# Especificando variáveis iniciais
+## Especificando variáveis iniciais
 mkdir -pv tmp assets;
 
 ESNx=$(pwd) && \
@@ -18,7 +18,16 @@ cd tmp && \
         export ESNx_TMP && \
             cd "$ESNx" || exit ;
 
-# Verificando variáveis
+# Verificando se lsb_release está instalado
+if ! command -v lsb_release &> /dev/null; then
+    echo "Comando lsb_release NÃO ENCONTRADO. Por favor, INSTALE-O PRIMEIRO!" >&2
+    exit 1
+fi
+
+DISTRO=$(lsb_release -i | awk '{print $3}') && \
+    export DISTRO
+
+### Verificando variáveis
 if [ "$(pwd)" = "$ESNx" ] && [ "$ESNx_ASSETS" = "$ESNx/assets" ] && [ "$ESNx_TMP" = "$ESNx/tmp" ]; then
     echo "good to go!" && cd "$ESNx_TMP" || exit
 else
@@ -28,9 +37,21 @@ fi
 
 ## Obtendo pacote nginx, dependências e modulos não oficiais
 
-# sudo apt -y install libpcre3 libpcre3-dev zlib1g zlib1g-dev;
+echo "Instalando dependências, é necessário acesso ao root!"
+echo "Sistema:"
+
+if  [ "$DISTRO" = "Debian" ] || [ "$DISTRO" = "Ubuntu" ]; then
+    echo " Debian-based ( Debian, Ubuntu, ... )"
+        sudo apt update
+        sudo apt -y install libpcre3 libpcre3-dev zlib1g zlib1g-dev
+elif [ "$DISTRO" = "Fedora" ] ; then
+    echo " Fedora-based ( Fedora, RHEL, ... )"
+        sudo dnf install pcre pcre-devel zlib zlib-devel
+fi
 
 sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx;
+
+echo "Dependências satisfeitas"
 
 wget -i "$ESNx_ASSETS/packages.txt" && \
     tar -zxf nginx-1.26.2.tar.gz && \
