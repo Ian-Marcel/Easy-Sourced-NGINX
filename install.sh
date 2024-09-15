@@ -22,6 +22,8 @@ cd tmp &&
 if ! command -v lsb_release &>/dev/null; then
     echo "Comando lsb_release NÃO ENCONTRADO. Por favor, INSTALE-O PRIMEIRO!" >&2
     exit 1
+else
+    echo "Comando lsb_release ENCONTRADO"
 fi
 
 DISTRO=$(lsb_release -i | awk '{print $3}') &&
@@ -29,7 +31,7 @@ DISTRO=$(lsb_release -i | awk '{print $3}') &&
 
 ### Verificando variáveis
 if [ "$(pwd)" = "$ESNx" ] && [ "$ESNx_ASSETS" = "$ESNx/assets" ] && [ "$ESNx_TMP" = "$ESNx/tmp" ]; then
-    echo "good to go!" && cd "$ESNx_TMP" || exit
+    echo "verificação do diretório, good to go!" && cd "$ESNx_TMP" || exit
 else
     echo "Falha na verificação do diretório" >&2
     exit 1
@@ -54,11 +56,11 @@ sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
 echo "Dependências satisfeitas"
 
 wget -i "$ESNx_ASSETS/packages.ini" &&
-    tar -zxf nginx-1.26.2.tar.gz &&
-    rm nginx-1.26.2.tar.gz &&
+    find "$ESNx_TMP" -name "*.tar.gz" -exec tar -zxf {} + &&
+    rm "$ESNx_TMP"/*.tar.gz &&
     git clone https://github.com/arut/nginx-dav-ext-module.git
 
-cd nginx-1.26.2 || exit
+cd nginx-*.*.* || exit
 
 ## Construindo a configuração NGINX
 ./configure \
@@ -121,3 +123,7 @@ sudo usermod -aG www-data nginx &&
 ## Excluindo cache
 cd "$ESNx" &&
     rm -rf tmp
+
+## Mensagem pós-instalação
+echo ''
+echo '...SUCESSO!'
