@@ -53,7 +53,7 @@ sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
 
 echo "Dependências satisfeitas"
 
-wget -i "$ESNx_ASSETS/packages.txt" &&
+wget -i "$ESNx_ASSETS/packages.ini" &&
     tar -zxf nginx-1.26.2.tar.gz &&
     rm nginx-1.26.2.tar.gz &&
     git clone https://github.com/arut/nginx-dav-ext-module.git
@@ -116,6 +116,7 @@ sudo cp "$ESNx_ASSETS/nginx.service" /usr/lib/systemd/system/ &&
 # Adicionando nginx ao grupo "www-data"
 sudo usermod -aG www-data nginx &&
     sudo systemctl restart nginx.service
+# Usar prefixo otimizado [depois...] 
 
 ## Excluindo cache
 cd "$ESNx" &&
