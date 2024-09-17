@@ -20,10 +20,10 @@ cd tmp &&
 
 # Verificando se lsb_release está instalado
 if ! command -v lsb_release &>/dev/null; then
-    echo "Comando lsb_release NÃO ENCONTRADO. Por favor, INSTALE-O PRIMEIRO!" >&2
+    echo "Comando 'lsb_release' NÃO ENCONTRADO. Por favor, INSTALE-O PRIMEIRO!" >&2
     exit 1
 else
-    echo "Comando lsb_release ENCONTRADO"
+    echo "Comando 'lsb_release' ENCONTRADO"
 fi
 
 DISTRO=$(lsb_release -i | awk '{print $3}') &&
@@ -31,7 +31,7 @@ DISTRO=$(lsb_release -i | awk '{print $3}') &&
 
 ### Verificando variáveis
 if [ "$(pwd)" = "$ESNx" ] && [ "$ESNx_ASSETS" = "$ESNx/assets" ] && [ "$ESNx_TMP" = "$ESNx/tmp" ]; then
-    echo "verificação do diretório, good to go!" && cd "$ESNx_TMP" || exit
+    echo "Sucesso na verificação do diretório" && cd "$ESNx_TMP" || exit
 else
     echo "Falha na verificação do diretório" >&2
     exit 1
@@ -39,8 +39,11 @@ fi
 
 ## Obtendo pacote nginx, dependências e modulos não oficiais
 
-echo "Instalando dependências, é necessário acesso ao root!"
-echo "Sistema:"
+echo \
+    "
+Instalando dependências, é necessário acesso ao root!
+Sistema:
+"
 
 if [ "$DISTRO" = "Debian" ] || [ "$DISTRO" = "Ubuntu" ]; then
     echo " Debian-based ( Debian, Ubuntu, ... )"
@@ -125,5 +128,7 @@ cd "$ESNx" &&
     rm -rf tmp
 
 ## Mensagem pós-instalação
-echo ''
-echo '...SUCESSO!'
+echo \
+    "
+...SUCESSO!
+"
