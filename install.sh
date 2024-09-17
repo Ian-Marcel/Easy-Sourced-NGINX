@@ -118,7 +118,7 @@ sudo cp "$ESNx_ASSETS/nginx.service" /usr/lib/systemd/system/ &&
 # Adicionando nginx ao grupo "www-data"
 sudo usermod -aG www-data nginx &&
     sudo systemctl restart nginx.service
-# Usar prefixo otimizado [depois...] 
+# Usar prefixo otimizado [depois...]
 
 ## Excluindo cache
 cd "$ESNx" &&
