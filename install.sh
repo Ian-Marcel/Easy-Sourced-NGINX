@@ -55,26 +55,27 @@ elif [ "$DISTRO" = "Fedora" ]; then
     sudo dnf install pcre pcre-devel zlib zlib-devel
 fi
 
-sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
-
 if ! cat /etc/passwd | grep nginx &>/dev/null; then
     echo \
         "
-Usuário nginx não encontrado!
+Usuário nginx NÃO ENCONTRADO!
 Criando usuário..." &&
         sudo useradd -u 999 -g 995 -d /nonexistent -s /bin/false -r -U nginx &&
         echo \
             "
-...Usuário nginx criado com sucesso!
+...Usuário nginx CRIADO com sucesso!
 Continuando...
 "
 else
     echo \
         "
-Usuário nginx encontrado!
+Usuário nginx ENCONTRADO!
 Continuando...
 "
 fi
+
+sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx &&
+sudo chown -R nginx:nginx /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
 
 echo "Dependências satisfeitas"
 
@@ -138,7 +139,7 @@ sudo cp "$ESNx_ASSETS/nginx.service" /usr/lib/systemd/system/ &&
     sudo systemctl enable --now nginx.service
 # Adicionando nginx ao grupo www-data
 sudo usermod -aG www-data nginx &&
-sudo chown -R nginx:nginx /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
+    sudo systemctl restart nginx.service
 # Usar prefixo otimizado [depois...]
 
 ## Excluindo cache #######################
