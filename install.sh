@@ -59,7 +59,7 @@ if ! cat /etc/passwd | grep nginx &>/dev/null; then
         "
 Usuário nginx NÃO ENCONTRADO!
 Criando usuário..." &&
-        sudo useradd -u 999 -g 995 -d /nonexistent -s /bin/false -r nginx &&
+        sudo useradd -d /nonexistent -s /bin/false -r -U nginx &&
         echo \
             "
 ...Usuário nginx CRIADO com sucesso!
