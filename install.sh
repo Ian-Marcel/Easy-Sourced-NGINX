@@ -46,7 +46,8 @@ Sistema:
 "
 
 if [ "$DISTRO" = "Debian" ] || [ "$DISTRO" = "Ubuntu" ]; then
-    echo " Debian-based ( Debian, Ubuntu, ... )"
+    echo " Debian-based ( Debian, Ubuntu, ... )
+    "
     sudo apt update
     sudo apt -y install libpcre3 libpcre3-dev zlib1g zlib1g-dev openssl
 elif [ "$DISTRO" = "Fedora" ]; then
