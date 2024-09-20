@@ -49,7 +49,7 @@ if [ "$DISTRO" = "Debian" ] || [ "$DISTRO" = "Ubuntu" ]; then
     echo "  Debian-based ( Debian, Ubuntu, ... )
     "
     sudo apt update
-    sudo apt -y install libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl3 libssl-dev libxml2 libxslt
+    sudo apt -y install libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl3 libssl-dev libxml2 # libxslt
 elif [ "$DISTRO" = "Fedora" ]; then
     echo " Fedora-based ( Fedora, RHEL, ... )"
     sudo dnf install pcre pcre-devel zlib zlib-devel
