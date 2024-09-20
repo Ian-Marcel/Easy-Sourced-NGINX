@@ -55,8 +55,6 @@ elif [ "$DISTRO" = "Fedora" ]; then
     sudo dnf install pcre pcre-devel zlib zlib-devel
 fi
 
-sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
-
 echo "Dependências satisfeitas"
 
 wget -i "$ESNx_ASSETS/packages.ini" &&
@@ -115,13 +113,14 @@ make
 sudo make install
 
 ## Finalizando instalação
+# Adicionando nginx ao grupo "www-data"
+sudo usermod -aG www-data nginx &&
+sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
+sudo chown -R nginx:nginx /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
 # Criando serviço para nginx
 sudo cp "$ESNx_ASSETS/nginx.service" /usr/lib/systemd/system/ &&
     sudo systemctl daemon-reload &&
     sudo systemctl enable --now nginx.service
-# Adicionando nginx ao grupo "www-data"
-sudo usermod -aG www-data nginx &&
-    sudo systemctl restart nginx.service
 # Usar prefixo otimizado [depois...]
 
 ## Excluindo cache
