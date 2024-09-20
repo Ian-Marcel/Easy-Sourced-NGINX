@@ -2,7 +2,7 @@
 
 set -euo pipefail # Sair em caso de erro e falha em variáveis ​​não definidas
 
-## Especificando variáveis iniciais
+## Especificando variáveis iniciais #######################
 mkdir -pv tmp assets
 
 ESNx=$(pwd) &&
@@ -29,7 +29,7 @@ fi
 DISTRO=$(lsb_release -i | awk '{print $3}') &&
     export DISTRO
 
-### Verificando variáveis
+## Verificando variáveis #######################
 if [ "$(pwd)" = "$ESNx" ] && [ "$ESNx_ASSETS" = "$ESNx/assets" ] && [ "$ESNx_TMP" = "$ESNx/tmp" ]; then
     echo "Sucesso na verificação do diretório" && cd "$ESNx_TMP" || exit
 else
@@ -37,7 +37,7 @@ else
     exit 1
 fi
 
-## Obtendo pacote nginx, dependências e modulos não oficiais
+## Obtendo pacote nginx, dependências e modulos não oficiais #######################
 
 echo \
     "
@@ -55,6 +55,27 @@ elif [ "$DISTRO" = "Fedora" ]; then
     sudo dnf install pcre pcre-devel zlib zlib-devel
 fi
 
+sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
+
+if ! cat /etc/passwd | grep nginx &>/dev/null; then
+    echo \
+        "
+Usuário nginx não encontrado!
+Criando usuário..." &&
+        sudo useradd -u 999 -g 995 -d /nonexistent -s /bin/false -r -U nginx &&
+        echo \
+            "
+...Usuário nginx criado com sucesso!
+Continuando...
+"
+else
+    echo \
+        "
+Usuário nginx encontrado!
+Continuando...
+"
+fi
+
 echo "Dependências satisfeitas"
 
 wget -i "$ESNx_ASSETS/packages.ini" &&
@@ -64,7 +85,7 @@ wget -i "$ESNx_ASSETS/packages.ini" &&
 
 cd nginx-*.*.* || exit
 
-## Construindo a configuração NGINX
+## Construindo e compilando a configuração NGINX #######################
 ./configure \
     --prefix=/etc/nginx \
     --sbin-path=/usr/sbin/nginx \
@@ -107,27 +128,24 @@ cd nginx-*.*.* || exit
     --with-stream_ssl_module \
     --with-stream_ssl_preread_module \
     --add-module=../nginx-dav-ext-module
+make &&
+    sudo make install
 
-## Compilando NGINX
-make
-sudo make install
-
-## Finalizando instalação
-# Adicionando nginx ao grupo "www-data"
-sudo usermod -aG www-data nginx &&
-sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
-sudo chown -R nginx:nginx /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
+## Finalizando instalação #######################
 # Criando serviço para nginx
 sudo cp "$ESNx_ASSETS/nginx.service" /usr/lib/systemd/system/ &&
     sudo systemctl daemon-reload &&
     sudo systemctl enable --now nginx.service
+# Adicionando nginx ao grupo www-data
+sudo usermod -aG www-data nginx &&
+sudo chown -R nginx:nginx /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
 # Usar prefixo otimizado [depois...]
 
-## Excluindo cache
+## Excluindo cache #######################
 cd "$ESNx" &&
     rm -rf tmp
 
-## Mensagem pós-instalação
+## Mensagem pós-instalação #######################
 echo \
     "
 ...SUCESSO!
