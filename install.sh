@@ -135,11 +135,13 @@ make &&
 # Criando serviço para nginx
 sudo cp "$ESNx_ASSETS/nginx.service" /usr/lib/systemd/system/ &&
     sudo systemctl daemon-reload &&
-    sudo systemctl enable --now nginx.service
+    sudo systemctl enable --now nginx
 # Adicionando nginx ao grupo www-data
 sudo usermod -aG www-data nginx &&
-    sudo systemctl restart nginx.service
+    sudo systemctl restart nginx
 # Usar prefixo otimizado [depois...]
+chmod +x "$ESNx_ASSETS/src/better-prefix.sh" &&
+source "$ESNx_ASSETS/src/better-prefix.sh"
 
 ## Excluindo cache #######################
 cd "$ESNx" &&
@@ -149,4 +151,5 @@ cd "$ESNx" &&
 echo \
     "
 ...SUCESSO!
+Caso tenha optado pela configuração otimizada 
 "
