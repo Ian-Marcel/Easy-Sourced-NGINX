@@ -156,5 +156,6 @@ echo \
 Caso tenha optado pela configuração otimizada visite e leia os comentários em
 "/etc/nginx/sites-available/default.conf", efetue as mudanças necessarias e
 reinicie nginx com:
+
 "sudo systemctl restart php" 
 '
