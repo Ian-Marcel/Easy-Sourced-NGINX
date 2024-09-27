@@ -7,10 +7,10 @@ shopt -s nocasematch &&
                 if [ "$NGINX_BETTER_PREFIX" = S ] || [ "$NGINX_BETTER_PREFIX" = Sim ]; then
                     echo "Ok, aplicando nova configuração..."
                     sudo rm -rf /etc/nginx &&
-                        tar -zxf "$ESNx_ASSETS/nginx.tar.gz" &&
+                        tar -zxf "$ESNx_ASSETS/file/nginx.tar.gz" &&
                         sudo cp -r nginx /etc/
                     sudo mkdir -p /var/www/nginx &&
-                        sudo cp "$ESNx_ASSETS/index.html" /var/www/nginx/ &&
+                        sudo cp "$ESNx_ASSETS/file/index.html" /var/www/nginx/ &&
                         sudo chown -R nginx:nginx /var/www/nginx &&
                         echo "...Nova configuração aplicada!"
                     break
@@ -27,10 +27,10 @@ shopt -s nocasematch &&
 #                if [ "$NGINX_BETTER_PREFIX" = Y ] || [ "$NGINX_BETTER_PREFIX" = Yes ]; then
 #                    echo "Ok, applying new configuration..."
 #                    sudo rm -rf /etc/nginx &&
-#                        tar -zxf "$ESNx_ASSETS/nginx.tar.gz" &&
+#                        tar -zxf "$ESNx_ASSETS/file/nginx.tar.gz" &&
 #                        sudo cp -r nginx /etc/
 #                    sudo mkdir -p /var/www/nginx &&
-#                        sudo cp "$ESNx_ASSETS/index.html" /var/www/nginx/ &&
+#                        sudo cp "$ESNx_ASSETS/file/index.html" /var/www/nginx/ &&
 #                        chown -r nginx:nginx /var/www/nginx &&
 #                        sudo systemctl restart nginx &&
 #                        echo "...New configuration applied!"
