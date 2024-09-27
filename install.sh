@@ -151,11 +151,9 @@ cd "$ESNx" &&
 ## Mensagem pós-instalação #######################
 echo \
     '
-...SUCESSO!
-
-Caso tenha optado pela configuração otimizada visite e leia os comentários em
-"/etc/nginx/sites-available/default.conf", efetue as mudanças necessarias e
+...INSTALAÇÃO CONCLUÍDA COM SUCESSO! Caso tenha optado pela configuração otimizada visite e leia os comentários em
+"/etc/nginx/sites-available/default.conf" e "/etc/nginx/nginx.conf", efetue as mudanças necessárias e
 reinicie nginx com:
 
-"sudo systemctl restart php" 
+"sudo systemctl restart nginx" 
 '
