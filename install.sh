@@ -54,7 +54,7 @@ elif [ "$DISTRO" = "Fedora" ]; then
     sudo dnf install pcre pcre-devel zlib zlib-devel
 fi
 
-if ! cat /etc/passwd | grep nginx &>/dev/null; then
+if ! grep -q nginx /etc/passwd; then
     echo \
         "
 Usuário nginx NÃO ENCONTRADO!
@@ -78,7 +78,7 @@ sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
 
 echo "Dependências satisfeitas"
 
-wget -i "$ESNx_ASSETS/packages.ini" &&
+wget -i "$ESNx_ASSETS/file/packages.ini" &&
     find "$ESNx_TMP" -name "*.tar.gz" -exec tar -zxf {} + &&
     rm "$ESNx_TMP"/*.tar.gz &&
     git clone https://github.com/arut/nginx-dav-ext-module.git
@@ -133,7 +133,7 @@ make &&
 
 ## Finalizando instalação #######################
 # Criando serviço para nginx
-sudo cp "$ESNx_ASSETS/nginx.service" /usr/lib/systemd/system/ &&
+sudo cp "$ESNx_ASSETS/file/nginx.service" /usr/lib/systemd/system/ &&
     sudo systemctl daemon-reload &&
     sudo systemctl enable --now nginx
 # Adicionando nginx ao grupo www-data
@@ -141,8 +141,7 @@ sudo usermod -aG www-data nginx &&
     sudo systemctl restart nginx
 # Usar prefixo otimizado [depois...]
 echo ''
-chmod +x "$ESNx_ASSETS/src/better-prefix.sh" &&
-    source "$ESNx_ASSETS/src/better-prefix.sh"
+
 
 ## Excluindo cache #######################
 cd "$ESNx" &&
@@ -152,5 +151,9 @@ cd "$ESNx" &&
 echo \
     '
 ...SUCESSO!
-Caso tenha optado pela configuração otimizada visite e leia os comentários em "/etc/nginx/sites-available/default.conf"
+
+Caso tenha optado pela configuração otimizada visite e leia os comentários em
+"/etc/nginx/sites-available/default.conf", efetue as mudanças necessarias e
+reinicie nginx com:
+"sudo systemctl restart php" 
 '

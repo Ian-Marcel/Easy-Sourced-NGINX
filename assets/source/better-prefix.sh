@@ -12,7 +12,6 @@ shopt -s nocasematch &&
                     sudo mkdir -p /var/www/nginx &&
                         sudo cp "$ESNx_ASSETS/index.html" /var/www/nginx/ &&
                         sudo chown -R nginx:nginx /var/www/nginx &&
-                        sudo systemctl restart nginx &&
                         echo "...Nova configuração aplicada!"
                     break
                 elif [ "$NGINX_BETTER_PREFIX" = N ] || [ "$NGINX_BETTER_PREFIX" = Não ]; then
