@@ -140,6 +140,7 @@ sudo cp "$ESNx_ASSETS/nginx.service" /usr/lib/systemd/system/ &&
 sudo usermod -aG www-data nginx &&
     sudo systemctl restart nginx
 # Usar prefixo otimizado [depois...]
+echo ''
 chmod +x "$ESNx_ASSETS/src/better-prefix.sh" &&
     source "$ESNx_ASSETS/src/better-prefix.sh"
 
