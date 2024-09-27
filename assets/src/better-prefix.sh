@@ -11,7 +11,7 @@ shopt -s nocasematch &&
                         sudo cp -r nginx /etc/
                     sudo mkdir -p /var/www/nginx &&
                         sudo cp "$ESNx_ASSETS/index.html" /var/www/nginx/ &&
-                        chown -r nginx:nginx /var/www/nginx &&
+                        chown -R nginx:nginx /var/www/nginx &&
                         sudo systemctl restart nginx &&
                         echo "...Nova configuração aplicada!"
                     break
