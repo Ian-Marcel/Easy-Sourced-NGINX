@@ -2,86 +2,39 @@
 
 set -euo pipefail # Sair em caso de erro e falha em variáveis ​​não definidas
 
-## Especificando variáveis iniciais #######################
-mkdir -pv tmp assets
-
-ESNx=$(pwd) &&
-    export ESNx
-
-cd assets &&
+## Especificando variáveis #######################
+mkdir -pv tmp assets &&
+    ESNx=$(pwd) &&
+    cd assets &&
     ESNx_ASSETS=$(pwd) &&
-    export ESNx_ASSETS &&
-    cd "$ESNx" || exit
-
-cd tmp &&
+    cd "$ESNx" &&
+    cd tmp &&
     ESNx_TMP=$(pwd) &&
-    export ESNx_TMP &&
     cd "$ESNx" || exit
-
-# Verificando se lsb_release está instalado
-if ! command -v lsb_release &>/dev/null; then
-    echo "Comando 'lsb_release' NÃO ENCONTRADO. Por favor, INSTALE-O PRIMEIRO!" >&2
-    exit 1
-else
-    echo "Comando 'lsb_release' ENCONTRADO"
-fi
-
-DISTRO=$(lsb_release -i | awk '{print $3}') &&
-    export DISTRO
-
-## Verificando variáveis #######################
+# Verificando variáveis
 if [ "$(pwd)" = "$ESNx" ] && [ "$ESNx_ASSETS" = "$ESNx/assets" ] && [ "$ESNx_TMP" = "$ESNx/tmp" ]; then
-    echo "Sucesso na verificação do diretório" && cd "$ESNx_TMP" || exit
+    echo "Sucesso na verificação do diretório"
+    chmod +x "$ESNx_ASSETS/source/"*.sh &&
+        cd "$ESNx_TMP" || exit
 else
     echo "Falha na verificação do diretório" >&2
     exit 1
 fi
 
-## Obtendo pacote nginx, dependências e modulos não oficiais #######################
-
-echo \
-    "
-Instalando dependências, é necessário acesso ao root!
-
-Sistema:"
-
-if [ "$DISTRO" = "Debian" ] || [ "$DISTRO" = "Ubuntu" ]; then
-    echo "  Debian-based ( Debian, Ubuntu, ... )
-    "
-    sudo apt -y install libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl3 libssl-dev libxml2 libxslt1-dev # libxslt
-elif [ "$DISTRO" = "Fedora" ]; then
-    echo " Fedora-based ( Fedora, RHEL, ... )"
-    sudo dnf install pcre pcre-devel zlib zlib-devel
-fi
-
-if ! grep -q nginx /etc/passwd; then
-    echo \
-        "
-Usuário nginx NÃO ENCONTRADO!
-Criando usuário..." &&
-        sudo useradd -d /nonexistent -s /bin/false -r -U nginx &&
-        echo \
-            "
-...Usuário nginx CRIADO com sucesso!
-Continuando...
-"
-else
-    echo \
-        "
-Usuário nginx ENCONTRADO!
-Continuando...
-"
-fi
-
-sudo mkdir -pv /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx &&
-    sudo chown -R nginx:nginx /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
-
-echo "Dependências satisfeitas"
-
+## Obtendo NGINX, dependências e modulos extras não oficiais #######################
+echo "Instalando dependências, é necessário acesso ao root!"
+# Checando distribuição para dependências
+source "$ESNx_ASSETS/source/distro_dependecies_check.sh"
+# Checando usuário
+source "$ESNx_ASSETS/source/user_check.sh"
+# Criando caminhos do nginx
+source "$ESNx_ASSETS/source/mkdir_paths.sh"
+echo "Dependências satisfeitas. Obtendo pacote NGINX e modulos extras não oficiais..."
 wget -i "$ESNx_ASSETS/file/packages.ini" &&
     find "$ESNx_TMP" -name "*.tar.gz" -exec tar -zxf {} + &&
     rm "$ESNx_TMP"/*.tar.gz &&
     git clone https://github.com/arut/nginx-dav-ext-module.git
+echo 'Pacote e modulos obtidos! Configurando NGINX...'
 
 cd nginx-*.*.* || exit
 
@@ -127,30 +80,24 @@ cd nginx-*.*.* || exit
     --with-stream_realip_module \
     --with-stream_ssl_module \
     --with-stream_ssl_preread_module \
-    --add-module=../nginx-dav-ext-module
+    --add-module=../nginx-dav-ext-module &&
+    echo 'NGINX configurado! Compilando NGINX...'
 make &&
+    echo 'NGINX compilado! Instalando NGINX...' &&
     sudo make install
 
 ## Finalizando instalação #######################
-# Criando serviço para nginx
-sudo cp "$ESNx_ASSETS/file/nginx.service" /usr/lib/systemd/system/ &&
-    sudo systemctl daemon-reload &&
-    sudo systemctl enable --now nginx
-# Adicionando nginx ao grupo www-data
-sudo usermod -aG www-data nginx &&
-    sudo systemctl restart nginx
-# Usar prefixo otimizado [depois...]
+source "$ESNx_ASSETS/source/final_touches.sh"
+# Usar prefixo otimizado (OPCIONAL)
 echo ''
-chmod +x "$ESNx_ASSETS/source/better-prefix.sh" &&
-    source "$ESNx_ASSETS/source/better-prefix.sh"
+source "$ESNx_ASSETS/source/better-prefix.sh"
 
-## Excluindo cache #######################
+## Apagando dados residuais #######################
 cd "$ESNx" &&
     rm -rf tmp
 
 ## Mensagem pós-instalação #######################
-echo \
-    '
+echo '
 ...INSTALAÇÃO CONCLUÍDA COM SUCESSO! Caso tenha optado pela configuração otimizada visite e leia os comentários em
 "/etc/nginx/sites-available/default.conf" e "/etc/nginx/nginx.conf", efetue as mudanças necessárias e
 reinicie nginx com:
