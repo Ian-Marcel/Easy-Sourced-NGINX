@@ -12,7 +12,7 @@ echo "Sistema:"
 if [ "$DISTRO" = "Debian" ] || [ "$DISTRO" = "Ubuntu" ]; then
     echo "  Debian-based ( Debian, Ubuntu, ... )
     "
-    sudo apt -y install libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl3 libssl-dev libxml2 libxslt1-dev # libxslt
+    sudo apt -y install build-essential libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl3 libssl-dev libxml2 libxslt1-dev
 elif [ "$DISTRO" = "Fedora" ]; then
     echo " Fedora-based ( Fedora, RHEL, ... )"
     sudo dnf install pcre pcre-devel zlib zlib-devel
