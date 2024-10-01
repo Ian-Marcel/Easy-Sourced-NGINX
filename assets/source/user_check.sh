@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 if ! grep -q nginx /etc/passwd; then
-    echo "Usuário nginx NÃO ENCONTRADO! Criando usuário..."
+    echo "Nginx user NOT FOUND! Creating user..."
     sudo useradd -d /nonexistent -s /bin/false -r -U nginx &&
-        echo "Usuário nginx CRIADO com sucesso!"
+        echo "Nginx user CREATED successfully!"
 else
-    echo "Usuário nginx ENCONTRADO!"
+    echo "Nginx user FOUND!"
 fi

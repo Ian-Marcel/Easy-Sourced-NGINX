@@ -13,28 +13,29 @@ mkdir -pv tmp assets &&
     cd "$ESNx" || exit
 # Verificando variáveis
 if [ "$(pwd)" = "$ESNx" ] && [ "$ESNx_ASSETS" = "$ESNx/assets" ] && [ "$ESNx_TMP" = "$ESNx/tmp" ]; then
-    echo "Sucesso na verificação do diretório"
+    echo "Successful directory check"
     chmod +x "$ESNx_ASSETS/source/"*.sh &&
         cd "$ESNx_TMP" || exit
 else
-    echo "Falha na verificação do diretório" >&2
+    echo "Directory verification failed" >&2
     exit 1
 fi
 
 ## Obtendo NGINX, dependências e modulos extras não oficiais #######################
-echo "Instalando dependências, é necessário acesso ao root!"
 # Checando distribuição para dependências
 source "$ESNx_ASSETS/source/distro_dependecies_check.sh"
+
 # Checando usuário
 source "$ESNx_ASSETS/source/user_check.sh"
+
 # Criando caminhos do nginx
 source "$ESNx_ASSETS/source/mkdir_paths.sh"
-echo "Dependências satisfeitas. Obtendo pacote NGINX e modulos extras não oficiais..."
+echo "Dependencies satisfied. Getting NGINX package and extra unofficial modules..."
 wget -i "$ESNx_ASSETS/file/packages.ini" &&
     find "$ESNx_TMP" -name "*.tar.gz" -exec tar -zxf {} + &&
     rm "$ESNx_TMP"/*.tar.gz &&
     git clone https://github.com/arut/nginx-dav-ext-module.git
-echo 'Pacote e modulos obtidos! Configurando NGINX...'
+echo 'Package and modules obtained! Configuring NGINX...'
 
 cd nginx-*.*.* || exit
 
@@ -81,13 +82,14 @@ cd nginx-*.*.* || exit
     --with-stream_ssl_module \
     --with-stream_ssl_preread_module \
     --add-module=../nginx-dav-ext-module &&
-    echo 'NGINX configurado! Compilando NGINX...'
+    echo 'NGINX configured! Compiling NGINX...'
 make &&
-    echo -e 'NGINX compilado! Instalando NGINX...' &&
+    echo -e 'NGINX compiled! Installing NGINX...' &&
     sudo make install
 
 ## Finalizando instalação #######################
 source "$ESNx_ASSETS/source/final_touches.sh"
+
 # Usar prefixo otimizado (OPCIONAL)
 echo ''
 source "$ESNx_ASSETS/source/better-prefix.sh"
@@ -98,9 +100,10 @@ cd "$ESNx" &&
 
 ## Mensagem pós-instalação #######################
 echo '
-...INSTALAÇÃO CONCLUÍDA COM SUCESSO! Caso tenha optado pela configuração otimizada visite e leia os comentários em
-"/etc/nginx/sites-available/default.conf" e "/etc/nginx/nginx.conf", efetue as mudanças necessárias e
-reinicie nginx com:
+...INSTALLATION COMPLETED SUCCESSFULLY! If you have 
+chosen the optimized configuration, visit and read the
+comments in "/etc/nginx/sites-available/default.conf" and
+"/etc/nginx/nginx.conf", make the changes and restart nginx with: 
 
-"sudo systemctl restart nginx" 
+"sudo systemctl restart nginx"
 '

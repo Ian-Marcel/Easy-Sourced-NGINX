@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Instalando dependências, é necessário acesso ao root!"
+
 # Verificando se lsb_release está instalado
 if ! command -v lsb_release &>/dev/null; then
     echo "Comando 'lsb_release' NÃO ENCONTRADO. Por favor, INSTALE-O PRIMEIRO!" >&2
@@ -13,7 +15,9 @@ if [ "$DISTRO" = "Debian" ] || [ "$DISTRO" = "Ubuntu" ]; then
     echo "  Debian-based ( Debian, Ubuntu, ... )
     "
     sudo apt -y install build-essential libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl3 libssl-dev libxml2 libxslt1-dev
+
 elif [ "$DISTRO" = "Fedora" ]; then
     echo " Fedora-based ( Fedora, RHEL, ... )"
-    sudo dnf install pcre pcre-devel zlib zlib-devel
+    sudo dnf -y install @development-tools pcre pcre-devel zlib zlib-devel openssl openssl-devel libxml2 libxslt-devel
+
 fi
