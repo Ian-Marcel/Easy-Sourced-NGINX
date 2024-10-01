@@ -1,23 +1,25 @@
 #!/usr/bin/env bash
 
-echo "Instalando dependências, é necessário acesso ao root!"
+echo "Installing dependencies requires root access!"
 
 # Verificando se lsb_release está instalado
 if ! command -v lsb_release &>/dev/null; then
-    echo "Comando 'lsb_release' NÃO ENCONTRADO. Por favor, INSTALE-O PRIMEIRO!" >&2
+    echo "Command 'lsb_release' NOT FOUND. Please INSTALL IT FIRST!" >&2
     exit 1
 fi
 
 DISTRO=$(lsb_release -i | awk '{print $3}')
 
-echo "Sistema:"
+echo "System:"
 if [ "$DISTRO" = "Debian" ] || [ "$DISTRO" = "Ubuntu" ]; then
-    echo "  Debian-based ( Debian, Ubuntu, ... )
-    "
-    sudo apt -y install build-essential libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl3 libssl-dev libxml2 libxslt1-dev
+    echo "  Debian family ( Debian, Ubuntu, Proxmox ... )"
+    sudo apt update -y && sudo apt upgrade -y &&
+        sudo apt -y install build-essential libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl3 libssl-dev libxml2 libxslt1-dev
 
 elif [ "$DISTRO" = "Fedora" ]; then
-    echo " Fedora-based ( Fedora, RHEL, ... )"
-    sudo dnf -y install @development-tools pcre pcre-devel zlib zlib-devel openssl openssl-devel libxml2 libxslt-devel
+    echo "  RHEL-family ( Fedora, RHEL, Alma ... )"
+    sudo dnf update -y &&
+        sudo dnf -y group install "Development Tools" &&
+        sudo dnf -y install pcre pcre-devel zlib zlib-devel openssl openssl-devel libxml2 libxslt-devel
 
 fi
