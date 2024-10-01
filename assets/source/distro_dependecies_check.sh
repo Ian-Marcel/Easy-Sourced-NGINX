@@ -8,7 +8,7 @@ echo "Installing dependencies requires root access!"
 #    exit 1
 #fi
 
-DISTRO=$(grep -w ID /etc/os-release | awk -F= '{print $2}')
+DISTRO=$(grep -w ID /etc/os-release | awk -F= '{gsub(/"/, "", $2); print $2}')
 
 echo "System:"
 if [ "$DISTRO" = "debian" ] || [ "$DISTRO" = "ubuntu" ]; then
@@ -16,7 +16,7 @@ if [ "$DISTRO" = "debian" ] || [ "$DISTRO" = "ubuntu" ]; then
     sudo apt update -y && sudo apt upgrade -y &&
         sudo apt -y install build-essential libpcre3 libpcre3-dev zlib1g zlib1g-dev libssl3 libssl-dev libxml2 libxslt1-dev
 
-elif [ "$DISTRO" = "fedora" ] || [ "$DISTRO" = "\"rocky\"" ] || [ "$DISTRO" = "\"almalinux\"" ]; then
+elif [ "$DISTRO" = "fedora" ] || [ "$DISTRO" = "rocky" ] || [ "$DISTRO" = "almalinux" ]; then
     echo "  RHEL-family ( Fedora, RHEL, CentOS ... )"
     sudo dnf update -y &&
         sudo dnf -y group install "Development Tools" &&
