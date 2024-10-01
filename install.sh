@@ -83,7 +83,7 @@ cd nginx-*.*.* || exit
     --add-module=../nginx-dav-ext-module &&
     echo 'NGINX configurado! Compilando NGINX...'
 make &&
-    echo 'NGINX compilado! Instalando NGINX...' &&
+    echo -e 'NGINX compilado! Instalando NGINX...' &&
     sudo make install
 
 ## Finalizando instalação #######################
