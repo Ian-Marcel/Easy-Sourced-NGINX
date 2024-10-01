@@ -3,10 +3,10 @@
 echo "Installing dependencies requires root access!"
 
 # Verificando se lsb_release está instalado
-if ! command -v lsb_release &>/dev/null; then
-    echo "Command 'lsb_release' NOT FOUND. Please INSTALL IT FIRST!" >&2
-    exit 1
-fi
+#if ! command -v lsb_release &>/dev/null; then
+#    echo "Command 'lsb_release' NOT FOUND. Please INSTALL IT FIRST!" >&2
+#    exit 1
+#fi
 
 DISTRO=$(grep -w ID /etc/os-release | awk -F= '{print $2}')
 
