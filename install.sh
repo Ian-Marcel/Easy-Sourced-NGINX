@@ -85,9 +85,7 @@ source "$ESNx_ASSETS/source/distro_dependecies_check.sh" &&
     source "$ESNx_ASSETS/source/final_touches.sh" &&
 
     # Usar prefixo otimizado (OPCIONAL)
-    shopt -s nocasematch &&
     source "$ESNx_ASSETS/source/better_prefix.sh" &&
-    shopt -u nocasematch
 
 ## Apagando dados residuais #######################
 cd "$ESNx" &&
