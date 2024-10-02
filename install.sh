@@ -2,7 +2,7 @@
 
 set -euo pipefail # Sair em caso de erro e falha em variáveis ​​não definidas
 
-## Especificando variáveis #######################
+## Designando variáveis #######################
 mkdir -pv tmp assets &&
     ESNx=$(pwd) &&
     cd assets &&
@@ -23,23 +23,17 @@ fi
 
 ## Obtendo NGINX, dependências e modulos extras não oficiais #######################
 # Checando distribuição para dependências
-source "$ESNx_ASSETS/source/distro_dependecies_check.sh"
-
+source "$ESNx_ASSETS/source/distro_dependecies_check.sh" &&
 # Checando usuário
-source "$ESNx_ASSETS/source/user_check.sh"
-
+source "$ESNx_ASSETS/source/user_check.sh" &&
 # Criando caminhos do nginx
-source "$ESNx_ASSETS/source/mkdir_paths.sh"
-echo "Dependencies satisfied. Getting NGINX package and extra unofficial modules..."
-wget -i "$ESNx_ASSETS/file/packages.ini" &&
-    find "$ESNx_TMP" -name "*.tar.gz" -exec tar -zxf {} + &&
-    rm "$ESNx_TMP"/*.tar.gz &&
-    git clone https://github.com/arut/nginx-dav-ext-module.git
-echo 'Package and modules obtained! Configuring NGINX...'
-
-cd nginx-*.*.* || exit
+source "$ESNx_ASSETS/source/mkdir_paths.sh" &&
+# Obtendo o pacote NGINX e módulos extras não oficiais
+source "$ESNx_ASSETS/source/downloading_packages.sh" &&
 
 ## Construindo e compilando a configuração NGINX #######################
+echo 'Package and modules obtained! Configuring NGINX...' &&
+cd nginx-*.*.* || exit &&
 ./configure \
     --prefix=/etc/nginx \
     --sbin-path=/usr/sbin/nginx \
@@ -82,24 +76,23 @@ cd nginx-*.*.* || exit
     --with-stream_ssl_module \
     --with-stream_ssl_preread_module \
     --add-module=../nginx-dav-ext-module &&
-    echo 'NGINX configured! Compiling NGINX...'
-make &&
+    echo 'NGINX configured! Compiling NGINX...' &&
+    make &&
     echo -e 'NGINX compiled! Installing NGINX...' &&
-    sudo make install
+    sudo make install &&
 
-## Finalizando instalação #######################
-source "$ESNx_ASSETS/source/final_touches.sh"
+    ## Finalizando instalação #######################
+    source "$ESNx_ASSETS/source/final_touches.sh" &&
 
-# Usar prefixo otimizado (OPCIONAL)
-echo ''
-source "$ESNx_ASSETS/source/better-prefix.sh"
+    # Usar prefixo otimizado (OPCIONAL)
+    source "$ESNx_ASSETS/source/better_prefix.sh" &&
 
-## Apagando dados residuais #######################
-cd "$ESNx" &&
-    rm -rf tmp
+    ## Apagando dados residuais #######################
+    cd "$ESNx" &&
+    rm -rf tmp &&
 
-## Mensagem pós-instalação #######################
-echo '
+    ## Mensagem pós-instalação #######################
+    echo '
 ...INSTALLATION COMPLETED SUCCESSFULLY! If you have 
 chosen the optimized configuration, visit and read the
 comments in "/etc/nginx/sites-available/default.conf" and

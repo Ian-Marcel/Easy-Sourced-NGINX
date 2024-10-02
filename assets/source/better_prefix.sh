@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+echo ''
 shopt -s nocasematch &&
     while true; do
         read -rp "We offer an optimized nginx configuration, do you want it applied? [(Y)es/(n)o]: " NGINX_BETTER_PREFIX &&
