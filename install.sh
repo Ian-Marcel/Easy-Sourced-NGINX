@@ -3,7 +3,7 @@
 set -euo pipefail # Sair em caso de erro e falha em variáveis ​​não definidas
 
 ## Designando variáveis #######################
-mkdir -pv tmp assets &&
+mkdir -p tmp assets &&
     ESNx=$(pwd) &&
     cd assets &&
     ESNx_ASSETS=$(pwd) &&
