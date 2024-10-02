@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
+shopt -u nocasematch
 echo ''
-shopt -s nocasematch
 while true; do
     read -rp "We offer an optimized nginx configuration, do you want it applied? [(Y)es/(n)o]: " NGINX_BETTER_PREFIX &&
         if [ "$NGINX_BETTER_PREFIX" = Y ] || [ "$NGINX_BETTER_PREFIX" = Yes ]; then
@@ -21,4 +21,4 @@ while true; do
             echo "Please answer with (Y)es or (N)o."
         fi
 done
-shopt -u nocasematch
+shopt -s nocasematch
