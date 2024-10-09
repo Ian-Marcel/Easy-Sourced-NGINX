@@ -11,6 +11,7 @@ while true; do
                 sudo cp -r nginx /etc/
             sudo mkdir -p /var/www/nginx &&
                 sudo cp "$ESNx_ASSETS/file/index.html" /var/www/nginx/ &&
+                sudo cp "$ESNx_ASSETS/file/info.php" /var/www/nginx/ &&
                 sudo chown -R nginx:nginx /var/www/nginx &&
                 echo "New configuration applied!"
             break
