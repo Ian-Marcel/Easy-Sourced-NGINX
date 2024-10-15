@@ -3,7 +3,7 @@
 set -euo pipefail # Sair em caso de erro e falha em variáveis ​​não definidas
 
 NORMAL='\033[0m' # No Color
-BLBLUE='\033[1;94m'
+BLBLUE='\033[1;36m'
 BGREEN='\033[1;32m'
 BYELLOW='\033[1;33m'
 BRED='\033[1;31m'

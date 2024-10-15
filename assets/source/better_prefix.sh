@@ -3,7 +3,7 @@
 echo -e ''
 shopt -s nocasematch
 while true; do
-    read -rp $'\033[1;33mWe offer an optimized nginx configuration, do you want it applied? \033[1;94m[(Y)es/(n)o]:' NGINX_BETTER_PREFIX &&
+    read -rp $'\033[1;33mWe offer an optimized nginx configuration, do you want it applied? \033[1;36m[(Y)es/(n)o]: \033[1;0m' NGINX_BETTER_PREFIX &&
         if [[ "$NGINX_BETTER_PREFIX" = Y ]] || [[ "$NGINX_BETTER_PREFIX" = Yes ]]; then
             echo -e "${BLBLUE}Ok, applying new configuration... ${NORMAL}"
             sudo rm -rf /etc/nginx &&
