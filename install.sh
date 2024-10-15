@@ -19,11 +19,11 @@ mkdir -p tmp assets &&
     cd "$ESNx" || exit
 # Verificando variáveis
 if [ "$(pwd)" = "$ESNx" ] && [ "$ESNx_ASSETS" = "$ESNx/assets" ] && [ "$ESNx_TMP" = "$ESNx/tmp" ]; then
-    echo -e "${BGREEN}Successful directory check"
+    echo -e "${BGREEN}Successful directory check ${NORMAL}"
     chmod +x "$ESNx_ASSETS/source/"*.sh &&
         cd "$ESNx_TMP" || exit
 else
-    echo -e "${BRED}Directory verification failed" >&2
+    echo -e "${BRED}Directory verification failed ${NORMAL}" >&2
     exit
 fi
 
@@ -38,7 +38,7 @@ source "$ESNx_ASSETS/source/distro_dependecies_check.sh" &&
     source "$ESNx_ASSETS/source/downloading_packages.sh" &&
 
     ## Construindo e compilando a configuração NGINX #######################
-    echo -e "${BGREEN}Package and modules obtained! ${BBLUE}Configuring NGINX..." &&
+    echo -e "${BGREEN}Package and modules obtained! ${BBLUE}Configuring NGINX... ${NORMAL}" &&
     cd nginx-*.*.* || exit &&
     ./configure \
         --prefix=/etc/nginx \
@@ -82,9 +82,9 @@ source "$ESNx_ASSETS/source/distro_dependecies_check.sh" &&
         --with-stream_ssl_module \
         --with-stream_ssl_preread_module \
         --add-module=../nginx-dav-ext-module &&
-    echo -e "${BGREEN}NGINX configured! ${BBLUE}Compiling NGINX..." &&
+    echo -e "${BGREEN}NGINX configured! ${BBLUE}Compiling NGINX... ${NORMAL}" &&
     make &&
-    echo -e -e "${BGREEN}NGINX compiled! ${BBLUE}Installing NGINX..." &&
+    echo -e -e "${BGREEN}NGINX compiled! ${BBLUE}Installing NGINX... ${NORMAL}" &&
     sudo make install &&
 
     # Usar prefixo otimizado (OPCIONAL)

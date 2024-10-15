@@ -8,14 +8,21 @@ sudo cp "$ESNx_ASSETS/file/nginx.service" /usr/lib/systemd/system/ &&
     if ! sudo usermod -aG www-data nginx; then
         sudo usermod -aG apache nginx
     fi &&
+
     ## Apagando dados residuais #######################
     cd "$ESNx" &&
     rm -rf tmp &&
+
     ## Mensagem pós-instalação #######################
-    echo -e "
+    if [[ "$NGINX_BETTER_PREFIX" = Y ]] || [[ "$NGINX_BETTER_PREFIX" = Yes ]]; then
+        echo -e "
 ${BGREEN}...INSTALLATION COMPLETED SUCCESSFULLY!
-${BBLUE}If you have chosen the optimized configuration, visit and read the
+\n${BBLUE}Since you have chosen the optimized configuration, visit and read the
 comments in ${BYELLOW}\"/etc/nginx/sites-available/default.conf\"${BBLUE} and
 ${BYELLOW}\"/etc/nginx/nginx.conf\"${BBLUE}, make the changes and restart nginx with: 
-
-${BYELLOW}\"sudo systemctl restart nginx\""
+\n${BYELLOW}\"sudo systemctl restart nginx\" ${NORMAL}\n"
+    elif [[ "$NGINX_BETTER_PREFIX" = N ]] || [[ "$NGINX_BETTER_PREFIX" = No ]]; then
+        echo -e "
+${BGREEN}...INSTALLATION COMPLETED SUCCESSFULLY!${NORMAL}
+"
+    fi
