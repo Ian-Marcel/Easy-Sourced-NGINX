@@ -3,7 +3,7 @@
 set -euo pipefail # Sair em caso de erro e falha em variáveis ​​não definidas
 
 NORMAL='\033[0m' # No Color
-BBLUE='\033[1;34m'
+BLBLUE='\033[1;94m'
 BGREEN='\033[1;32m'
 BYELLOW='\033[1;33m'
 BRED='\033[1;31m'
@@ -38,7 +38,7 @@ source "$ESNx_ASSETS/source/distro_dependecies_check.sh" &&
     source "$ESNx_ASSETS/source/downloading_packages.sh" &&
 
     ## Construindo e compilando a configuração NGINX #######################
-    echo -e "${BGREEN}Package and modules obtained! ${BBLUE}Configuring NGINX... ${NORMAL}" &&
+    echo -e "${BGREEN}Package and modules obtained! ${BLBLUE}Configuring NGINX... ${NORMAL}" &&
     cd nginx-*.*.* || exit &&
     ./configure \
         --prefix=/etc/nginx \
@@ -82,9 +82,9 @@ source "$ESNx_ASSETS/source/distro_dependecies_check.sh" &&
         --with-stream_ssl_module \
         --with-stream_ssl_preread_module \
         --add-module=../nginx-dav-ext-module &&
-    echo -e "${BGREEN}NGINX configured! ${BBLUE}Compiling NGINX... ${NORMAL}" &&
+    echo -e "${BGREEN}NGINX configured! ${BLBLUE}Compiling NGINX... ${NORMAL}" &&
     make &&
-    echo -e -e "${BGREEN}NGINX compiled! ${BBLUE}Installing NGINX... ${NORMAL}" &&
+    echo -e -e "${BGREEN}NGINX compiled! ${BLBLUE}Installing NGINX... ${NORMAL}" &&
     sudo make install &&
 
     # Usar prefixo otimizado (OPCIONAL)

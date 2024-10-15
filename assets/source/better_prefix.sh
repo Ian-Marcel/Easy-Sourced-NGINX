@@ -3,9 +3,9 @@
 echo -e ''
 shopt -s nocasematch
 while true; do
-    read -rp "\e[33mWe offer an optimized nginx configuration, do you want it applied? [(Y)es/(n)o]: \e[0m" NGINX_BETTER_PREFIX &&
+    read -rp $'\033[1;33mWe offer an optimized nginx configuration, do you want it applied? \033[1;94m[(Y)es/(n)o]:' NGINX_BETTER_PREFIX &&
         if [[ "$NGINX_BETTER_PREFIX" = Y ]] || [[ "$NGINX_BETTER_PREFIX" = Yes ]]; then
-            echo -e "${BBLUE}Ok, applying new configuration... ${NORMAL}"
+            echo -e "${BLBLUE}Ok, applying new configuration... ${NORMAL}"
             sudo rm -rf /etc/nginx &&
                 tar -zxf "$ESNx_ASSETS/file/nginx.tar.gz" &&
                 sudo cp -r nginx /etc/
@@ -16,7 +16,7 @@ while true; do
                 echo -e "${BGREEN}New configuration applied! ${NORMAL}"
             break
         elif [[ "$NGINX_BETTER_PREFIX" = N ]] || [[ "$NGINX_BETTER_PREFIX" = No ]]; then
-            echo -e "${BBLUE}Ok, continuing with default configuration! ${NORMAL}"
+            echo -e "${BLBLUE}Ok, continuing with default configuration! ${NORMAL}"
             break
         else
             echo -e "${BYELLOW}Please answer with (Y)es or (N)o. ${NORMAL}"
