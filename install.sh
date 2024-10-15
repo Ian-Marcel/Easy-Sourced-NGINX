@@ -2,7 +2,13 @@
 
 set -euo pipefail # Sair em caso de erro e falha em variáveis ​​não definidas
 
-## Designando variáveis #######################
+NORMAL='\033[0m' # No Color
+BBLUE='\033[1;34m'
+BGREEN='\033[1;32m'
+BYELLOW='\033[1;33m'
+BRED='\033[1;31m'
+
+## Designando variáveis de ambiente #######################
 mkdir -p tmp assets &&
     ESNx=$(pwd) &&
     cd assets &&
@@ -13,12 +19,12 @@ mkdir -p tmp assets &&
     cd "$ESNx" || exit
 # Verificando variáveis
 if [ "$(pwd)" = "$ESNx" ] && [ "$ESNx_ASSETS" = "$ESNx/assets" ] && [ "$ESNx_TMP" = "$ESNx/tmp" ]; then
-    echo "Successful directory check"
+    echo -e "${BGREEN}Successful directory check"
     chmod +x "$ESNx_ASSETS/source/"*.sh &&
         cd "$ESNx_TMP" || exit
 else
-    echo "Directory verification failed" >&2
-    exit 1
+    echo -e "${BRED}Directory verification failed" >&2
+    exit
 fi
 
 ## Obtendo NGINX, dependências e modulos extras não oficiais #######################
@@ -32,7 +38,7 @@ source "$ESNx_ASSETS/source/distro_dependecies_check.sh" &&
     source "$ESNx_ASSETS/source/downloading_packages.sh" &&
 
     ## Construindo e compilando a configuração NGINX #######################
-    echo 'Package and modules obtained! Configuring NGINX...' &&
+    echo -e "${BGREEN}Package and modules obtained! ${BBLUE}Configuring NGINX..." &&
     cd nginx-*.*.* || exit &&
     ./configure \
         --prefix=/etc/nginx \
@@ -76,27 +82,13 @@ source "$ESNx_ASSETS/source/distro_dependecies_check.sh" &&
         --with-stream_ssl_module \
         --with-stream_ssl_preread_module \
         --add-module=../nginx-dav-ext-module &&
-    echo 'NGINX configured! Compiling NGINX...' &&
+    echo -e "${BGREEN}NGINX configured! ${BBLUE}Compiling NGINX..." &&
     make &&
-    echo -e 'NGINX compiled! Installing NGINX...' &&
+    echo -e -e "${BGREEN}NGINX compiled! ${BBLUE}Installing NGINX..." &&
     sudo make install &&
-
-    ## Finalizando instalação #######################
-    source "$ESNx_ASSETS/source/final_touches.sh" &&
 
     # Usar prefixo otimizado (OPCIONAL)
     source "$ESNx_ASSETS/source/better_prefix.sh" &&
 
-## Apagando dados residuais #######################
-cd "$ESNx" &&
-    rm -rf tmp &&
-
-    ## Mensagem pós-instalação #######################
-    echo '
-...INSTALLATION COMPLETED SUCCESSFULLY! If you have 
-chosen the optimized configuration, visit and read the
-comments in "/etc/nginx/sites-available/default.conf" and
-"/etc/nginx/nginx.conf", make the changes and restart nginx with: 
-
-"sudo systemctl restart nginx"
-'
+    ## Finalizando instalação #######################
+    source "$ESNx_ASSETS/source/final_touches.sh"
