@@ -19,7 +19,7 @@ mkdir -p tmp assets &&
     cd "$ESNx" || exit
 # Verificando variáveis
 if [ "$(pwd)" = "$ESNx" ] && [ "$ESNx_ASSETS" = "$ESNx/assets" ] && [ "$ESNx_TMP" = "$ESNx/tmp" ]; then
-    echo -e "${BGREEN}Successful directory check ${NORMAL}"
+    echo -e "${BGREEN}Successful directory check ${NORMAL} \n"
     chmod +x "$ESNx_ASSETS/source/"*.sh &&
         cd "$ESNx_TMP" || exit
 else

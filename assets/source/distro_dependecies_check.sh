@@ -4,7 +4,7 @@ echo -e "${BLBLUE}Installing dependencies, ${BYELLOW}it requires root access! ${
 
 DISTRO_ID=$(grep -w ID /etc/os-release | awk -F= '{gsub(/"/, "", $2); print $2}')
 
-echo -e "${BLBLUE}System: ${NORMAL}"
+echo -e "\n ${BLBLUE}System: ${NORMAL}"
 if [ "$DISTRO_ID" = "debian" ] || [ "$DISTRO_ID" = "ubuntu" ]; then
     echo -e "  ${BGREEN}Debian family ( Debian, Ubuntu, Raspberry Pi OS ... ) ${NORMAL}"
     sudo apt update -y && sudo apt upgrade -y &&
