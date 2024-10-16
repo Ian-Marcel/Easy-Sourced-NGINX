@@ -2,8 +2,8 @@
 
 set -euo pipefail # Sair em caso de erro e falha em variáveis ​​não definidas
 
-NORMAL='\033[0m' # No Color
-BLBLUE='\033[1;36m'
+NC='\033[0m' # No Color
+BCYAN='\033[1;36m'
 BGREEN='\033[1;32m'
 BYELLOW='\033[1;33m'
 BRED='\033[1;31m'
@@ -19,11 +19,11 @@ mkdir -p tmp assets &&
     cd "$ESNx" || exit
 # Verificando variáveis
 if [ "$(pwd)" = "$ESNx" ] && [ "$ESNx_ASSETS" = "$ESNx/assets" ] && [ "$ESNx_TMP" = "$ESNx/tmp" ]; then
-    echo -e "${BGREEN}Successful directory check ${NORMAL} \n"
+    echo -e "${BGREEN}Successful directory check ${NC} \n"
     chmod +x "$ESNx_ASSETS/source/"*.sh &&
         cd "$ESNx_TMP" || exit
 else
-    echo -e "${BRED}Directory verification failed ${NORMAL}" >&2
+    echo -e "${BRED}Directory verification failed ${NC}" >&2
     exit
 fi
 
@@ -38,7 +38,7 @@ source "$ESNx_ASSETS/source/distro_dependecies_check.sh" &&
     source "$ESNx_ASSETS/source/downloading_packages.sh" &&
 
     ## Construindo e compilando a configuração NGINX #######################
-    echo -e "${BGREEN}Package and modules obtained! ${BLBLUE}Configuring NGINX... ${NORMAL}" &&
+    echo -e "${BGREEN}Package and modules obtained! ${BCYAN}Configuring NGINX... ${NC}" &&
     cd nginx-*.*.* || exit &&
     ./configure \
         --prefix=/etc/nginx \
@@ -82,9 +82,9 @@ source "$ESNx_ASSETS/source/distro_dependecies_check.sh" &&
         --with-stream_ssl_module \
         --with-stream_ssl_preread_module \
         --add-module=../nginx-dav-ext-module &&
-    echo -e "${BGREEN}NGINX configured! ${BLBLUE}Compiling NGINX... ${NORMAL}" &&
+    echo -e "${BGREEN}NGINX configured! ${BCYAN}Compiling NGINX... ${NC}" &&
     make &&
-    echo -e -e "${BGREEN}NGINX compiled! ${BLBLUE}Installing NGINX... ${NORMAL}" &&
+    echo -e -e "${BGREEN}NGINX compiled! ${BCYAN}Installing NGINX... ${NC}" &&
     sudo make install &&
 
     # Usar prefixo otimizado (OPCIONAL)
