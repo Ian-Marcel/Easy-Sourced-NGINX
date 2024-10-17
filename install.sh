@@ -38,7 +38,7 @@ source "$ESNx_ASSETS/source/distro_dependecies_check.sh" &&
     source "$ESNx_ASSETS/source/downloading_packages.sh" &&
 
     ## Construindo e compilando a configuração NGINX #######################
-    echo -e "${BGREEN}Package and modules obtained! ${BCYAN}Configuring NGINX... ${NC}" &&
+    echo -e "\n${BGREEN}Package and modules obtained! ${BCYAN}Configuring NGINX... ${NC} \n" &&
     cd nginx-*.*.* || exit &&
     ./configure \
         --prefix=/etc/nginx \
@@ -82,9 +82,9 @@ source "$ESNx_ASSETS/source/distro_dependecies_check.sh" &&
         --with-stream_ssl_module \
         --with-stream_ssl_preread_module \
         --add-module=../nginx-dav-ext-module &&
-    echo -e "${BGREEN}NGINX configured! ${BCYAN}Compiling NGINX... ${NC}" &&
+    echo -e "${BGREEN}NGINX configured! ${BCYAN}Compiling NGINX... ${NC} \n" &&
     make &&
-    echo -e -e "${BGREEN}NGINX compiled! ${BCYAN}Installing NGINX... ${NC}" &&
+    echo -e -e "${BGREEN}NGINX compiled! ${BCYAN}Installing NGINX... ${NC} \n" &&
     sudo make install &&
 
     # Usar prefixo otimizado (OPCIONAL)
