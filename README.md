@@ -1,1 +1,4 @@
-<h1 style="display: flex; align-items: center;" ><img title="" src="assets/file/logo.png" align="left" width="200"> Easy-Sourced-NGINX</h1>
+<img title="" src="assets/file/Easy-Sourced-NGINX_Banner.png" width="500">
+
+- - -
+
