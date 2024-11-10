@@ -1,1 +1,2 @@
-<h1 style="display: flex; align-items: center;"><img title="" src="assets/file/logo.png" align="left" width="128">Easy-Sourced-NGINX</h1>
+<img title="" src="assets/file/logo.png" align="left" width="128">
+<h1>Easy-Sourced-NGINX</h1>
