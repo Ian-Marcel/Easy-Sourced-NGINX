@@ -4,5 +4,5 @@
 
 just copy n paste this command in your linux machine:
 ```
-curl -s https://www.toolpot.club/file/esx -o esx.sh && bash esx.sh
+curl -s https://www.toolpot.club/get/easy-sourced-nginx | sh
 ```
