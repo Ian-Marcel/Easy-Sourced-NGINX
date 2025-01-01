@@ -2,8 +2,8 @@
 
 shopt -s nocasematch
 while true; do
-    if [ -v "$CURL_ESX" ] && [[ "$CURL_ESX" = 2 ]]; then
-        NGINX_BETTER_PREFIX='No'
+    if test ! -z "$CURL_ESX" && [[ "$CURL_ESX" = 2 ]]; then
+        NGINX_BETTER_PREFIX='No'    
         break
     else
         read -rp $'\033[1;33mWe offer an optimized nginx configuration, do you want it applied? \033[1;36m[(Y)es/(n)o]: \033[1;0m' NGINX_BETTER_PREFIX &&
