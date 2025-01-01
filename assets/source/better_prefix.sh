@@ -2,7 +2,7 @@
 
 shopt -s nocasematch
 while true; do
-    if [[ -v "$CURL_ESX" && "$CURL_ESX" = 2 ]]; then
+    if [[ -v "$CURL_ESX" ]] && [[ "$CURL_ESX" = 2 ]]; then
         NGINX_BETTER_PREFIX='No'
         break
     else
