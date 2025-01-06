@@ -6,5 +6,5 @@ cd nginx-1.26.2 || exit
 source "$ESNx_ASSETS/source/configure.sh" &&
     echo -e "${BGREEN}NGINX configured! ${BCYAN}Compiling NGINX... ${NC} \n" &&
     make &&
-    echo -e -e "${BGREEN}NGINX compiled! ${BCYAN}Installing NGINX... ${NC} \n" &&
+    echo -e "${BGREEN}NGINX compiled! ${BCYAN}Installing NGINX... ${NC} \n" &&
     sudo make install
