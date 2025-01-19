@@ -13,7 +13,7 @@ if [ "$DISTRO_ID" = "debian" ] || [ "$DISTRO_ID" = "ubuntu" ]; then
 elif [ "$DISTRO_ID" = "fedora" ] || [ "$DISTRO_ID" = "rocky" ] || [ "$DISTRO_ID" = "almalinux" ]; then
     echo -e "  ${BGREEN}Red Hat family ( Fedora, RHEL, CentOS ... ) ${NC} \n"
     sudo dnf upgrade --refresh --assumeyes --quiet &&
-        sudo dnf --assumeyes --quiet group install "Development Tools" &&
+        sudo dnf --assumeyes --quiet group install development-tools &&
         sudo dnf --assumeyes --quiet install pcre pcre-devel zlib zlib-devel openssl openssl-devel libxml2 libxslt-devel
 
 fi
