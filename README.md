@@ -10,4 +10,4 @@ curl -sSL https://www.toolpot.club/get/easy-sourced-nginx | sh
 ``` bash
 git clone https://github.com/Ian-Marcel/Easy-Sourced-NGINX.git
 ```
-> A benefit of the manual installation is the possibility of customizing nginx parameters before building/compiling it, edit `configure.sh` file to do so.
+> A benefit of the manual installation is the possibility of customizing nginx parameters before build/compile it, edit `configure.sh` file to do so.
