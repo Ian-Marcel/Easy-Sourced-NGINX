@@ -2,7 +2,11 @@
 
 - - -
 
-just copy n paste this command in your linux machine:
-```
+For an automated installation just copy and paste this command in your linux terminal:
+``` bash
 curl -sSL https://www.toolpot.club/get/easy-sourced-nginx | sh
+```
+If you want to edit nginx before compiling it, just pull with `git pull`:
+``` git
+git clone https://github.com/Ian-Marcel/Easy-Sourced-NGINX.git
 ```
