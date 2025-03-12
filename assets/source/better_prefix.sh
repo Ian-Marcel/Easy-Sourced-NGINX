@@ -6,7 +6,7 @@ while true; do
         NGINX_BETTER_PREFIX='No'
         break
     else
-        read -rp $'\033[1;33m\e\We offer an optimized nginx configuration, do you want it applied? \033[1;36m\e\[(Y)es/(n)o]:\033[1;0m\e\ ' NGINX_BETTER_PREFIX &&
+        read -rp $'\033[1;33mWe offer an optimized nginx configuration, do you want it applied? \033[1;36m[(Y)es/(n)o]: \033[1;0m' NGINX_BETTER_PREFIX &&
             if [[ "$NGINX_BETTER_PREFIX" = Y ]] || [[ "$NGINX_BETTER_PREFIX" = Yes ]]; then
                 echo -e "\n${BCYAN}Ok, applying new configuration... ${NC}"
                 sudo rm -rf /etc/nginx &&
