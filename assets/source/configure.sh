@@ -41,4 +41,5 @@
     --with-stream_realip_module \
     --with-stream_ssl_module \
     --with-stream_ssl_preread_module \
-    --add-module=../nginx-dav-ext-module-4.0.1
+    --add-module=../nginx-dav-ext-module-4.0.1 \
+    --add-module=../headers-more-nginx-module-0.38
