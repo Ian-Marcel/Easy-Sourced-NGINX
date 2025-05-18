@@ -2,7 +2,7 @@
 
 ## Construindo, compilando e instalando a configuração NGINX #######################
 echo -e "\n${BGREEN}Package and modules obtained! ${BCYAN}Configuring NGINX... ${NC} \n"
-cd nginx-1.27.4 || exit
+cd nginx-1.28.0 || exit
 source "$ESNx_ASSETS/source/configure.sh" &&
     echo -e "${BGREEN}NGINX configured! ${BCYAN}Compiling NGINX... ${NC} \n" &&
     make &&
