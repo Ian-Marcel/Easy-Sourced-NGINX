@@ -8,6 +8,8 @@ BGREEN='\033[1;32m'
 BYELLOW='\033[1;33m'
 BRED='\033[1;31m'
 
+trap 'echo -e "❌ ${BYELLOW}Error occurred.${BCYAN} Exiting.${NC}"' ERR
+
 ## Designando variáveis de ambiente #######################
 mkdir -p tmp assets &&
     ESNx=$(pwd) &&
