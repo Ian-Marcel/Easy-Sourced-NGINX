@@ -4,7 +4,7 @@
 
 - For an automated installation copy and paste this command in your linux terminal:
 ``` bash
-curl -sSL https://www.toolpot.club/get/easy-sourced-nginx | sh
+curl -sSL https://serving.duckdns.org/get/easy-sourced-nginx | sh
 ```
 - For a manual installation pull the repository with `git clone`:
 ``` bash
