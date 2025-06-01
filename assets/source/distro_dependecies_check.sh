@@ -11,11 +11,11 @@ if [ "$DISTRO_ID" = "debian" ] || [ "$DISTRO_ID" = "ubuntu" ]; then
 	source "$ESNx_ASSETS"/file/deb_dependecies.sh
 	for current_task_index in "${!apt_tasks[@]}"; do
 		if [ "$current_task_index" -ge 2 ]; then
-			sudo apt-get --assume-yes install "${apt_tasks[$current_task_index]}" >/dev/null
+			sudo apt-get --assume-yes install "${apt_tasks[$current_task_index]}" &>/dev/null
 			sleep 0.2
 			show_progress "$current_task_index" "$(echo "${!apt_tasks[@]}" | awk '{ print $NF }')"
 		else
-			${apt_tasks[$current_task_index]} >/dev/null
+			${apt_tasks[$current_task_index]} &>/dev/null
 			sleep 0.2
 			show_progress "$current_task_index" "$(echo "${!apt_tasks[@]}" | awk '{ print $NF }')"
 		fi
