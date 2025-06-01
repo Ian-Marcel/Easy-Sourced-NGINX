@@ -11,12 +11,12 @@ if [ "$DISTRO_ID" = "debian" ] || [ "$DISTRO_ID" = "ubuntu" ]; then
 	source "$ESNx_ASSETS"/file/deb_dependecies.sh
 	for current_task_index in "${!apt_tasks[@]}"; do
 		if [ "$current_task_index" -ge 2 ]; then
-			sleep 0.2 # simulate the task running
 			sudo apt-get --assume-yes install "${apt_tasks[$current_task_index]}" >/dev/null
+			sleep 0.2
 			show_progress "$current_task_index" "$(echo "${!apt_tasks[@]}" | awk '{ print $NF }')"
 		else
-			sleep 0.2 # simulate the task running
 			${apt_tasks[$current_task_index]} >/dev/null
+			sleep 0.2
 			show_progress "$current_task_index" "$(echo "${!apt_tasks[@]}" | awk '{ print $NF }')"
 		fi
 	done
@@ -25,12 +25,12 @@ elif [ "$DISTRO_ID" = "fedora" ] || [ "$DISTRO_ID" = "rocky" ] || [ "$DISTRO_ID"
 	source "$ESNx_ASSETS"/file/rpm_dependecies.sh
 	for current_task_index in "${!dnf_tasks[@]}"; do
 		if [ "$current_task_index" -ge 3 ]; then
-			sleep 0.2 # simulate the task running
 			sudo dnf install --assumeyes --quiet "${dnf_tasks[$current_task_index]}" >/dev/null
+			sleep 0.2
 			show_progress "$current_task_index" "$(echo "${!dnf_tasks[@]}" | awk '{ print $NF }')"
 		else
-			sleep 0.2 # simulate the task running
 			${dnf_tasks[$current_task_index]} >/dev/null
+			sleep 0.2
 			show_progress "$current_task_index" "$(echo "${!dnf_tasks[@]}" | awk '{ print $NF }')"
 		fi
 	done
