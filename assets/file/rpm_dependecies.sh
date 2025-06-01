@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 dnf_tasks=(
-    "sudo dnf check-upgrade --refresh"
+    "sudo dnf check-upgrade --refresh --quiet"
     "sudo dnf upgrade --assumeyes --quiet"
     "sudo dnf group --assumeyes --quiet install development-tools"
     "pcre"
