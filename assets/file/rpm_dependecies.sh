@@ -2,8 +2,8 @@
 
 dnf_tasks=(
     "sudo dnf check-upgrade --refresh"
-    "sudo dnf upgrade --assumeyes"
-    "sudo dnf --assumeyes group install development-tools"
+    "sudo dnf upgrade --assumeyes --quiet"
+    "sudo dnf group --assumeyes --quiet install development-tools"
     "pcre"
     "zlib"
     "openssl"
