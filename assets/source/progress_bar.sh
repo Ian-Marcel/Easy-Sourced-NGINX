@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 
 bar_size=40
 bar_char_done="#"
