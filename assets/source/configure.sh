@@ -2,9 +2,9 @@
 
 ./configure \
     --prefix=/etc/nginx \
+    --conf-path=/etc/nginx/nginx.conf \
     --sbin-path=/usr/sbin/nginx \
     --modules-path=/usr/lib/nginx/modules \
-    --conf-path=/etc/nginx/nginx.conf \
     --error-log-path=/var/log/nginx/error.log \
     --http-log-path=/var/log/nginx/access.log \
     --pid-path=/var/run/nginx.pid \
@@ -43,3 +43,4 @@
     --with-stream_ssl_preread_module \
     --add-module=../nginx-dav-ext-module-4.0.1 \
     --add-module=../headers-more-nginx-module-0.38
+

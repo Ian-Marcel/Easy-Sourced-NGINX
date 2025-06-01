@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail # Sair em caso de erro e falha em variáveis ​​não definidas
+set -euo pipefail # Sair em caso de erro e falha em variáveis não definidas
 
 NC='\033[0m' # No Color
 BCYAN='\033[1;36m'
