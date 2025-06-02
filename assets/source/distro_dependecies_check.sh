@@ -5,7 +5,7 @@ echo -e "${BCYAN}Installing dependencies, ${BYELLOW}it requires root access! ${N
 source "$ESNx_ASSETS"/source/progress_bar.sh
 DISTRO_ID=$(grep -w ID /etc/os-release | awk -F= '{gsub(/"/, "", $2); print $2}')
 
-echo -e "\n${BCYAN}System: ${NC}"
+echo -ne "\n\b ${BCYAN}System: ${NC}"
 if [ "$DISTRO_ID" = "debian" ] || [ "$DISTRO_ID" = "ubuntu" ]; then
 	echo -e "\t${BGREEN}Debian family ( Debian, Ubuntu, Raspberry Pi OS ... ) ${NC} \n"
 	source "$ESNx_ASSETS"/file/deb_dependecies.sh
