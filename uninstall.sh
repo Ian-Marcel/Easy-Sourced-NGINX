@@ -8,7 +8,7 @@ BGREEN='\033[1;32m'
 BYELLOW='\033[1;33m'
 BRED='\033[1;31m'
 
-source assets/source/progress_bar.sh
+source assets/source/progress_bar_by_task_completion.sh
 
 trap 'echo -e "❌ ${BYELLOW}Error occurred! ${BCYAN}Exiting...${NC}"' ERR
 

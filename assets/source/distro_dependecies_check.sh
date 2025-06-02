@@ -2,7 +2,7 @@
 
 echo -e "${BCYAN}Installing dependencies, ${BYELLOW}it requires root access! ${NC}"
 
-source "$ESNx_ASSETS"/source/progress_bar.sh
+source "$ESNx_ASSETS"/source/progress_bar_by_task_completion.sh
 DISTRO_ID=$(grep -w ID /etc/os-release | awk -F= '{gsub(/"/, "", $2); print $2}')
 
 sudo echo -ne "\n\b ${BCYAN}System: ${NC}"
