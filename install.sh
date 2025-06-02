@@ -31,19 +31,19 @@ fi
 
 ## Obtendo NGINX, dependências e modulos extras não oficiais #######################
 # Checando distribuição para dependências
-source "$ESNx_ASSETS/source/distro_dependecies_check.sh" &&
-    # Checando usuário
+	source "$ESNx_ASSETS/source/distro_dependecies_check.sh" &&
+# Checando usuário
     source "$ESNx_ASSETS/source/user_check.sh" &&
-    # Criando caminhos do nginx
+# Criando caminhos do nginx
     source "$ESNx_ASSETS/source/mkdir_paths.sh" &&
-    # Obtendo o pacote NGINX e módulos extras não oficiais
+# Obtendo o pacote NGINX e módulos extras não oficiais
     source "$ESNx_ASSETS/source/downloading_packages.sh" &&
 
-    ## Instalando NGINX #######################
+## Instalando NGINX #######################
     source "$ESNx_ASSETS/source/installation.sh" &&
 
-    # Usar prefixo otimizado (OPCIONAL)
+# Usar prefixo otimizado (OPCIONAL)
     source "$ESNx_ASSETS/source/better_prefix.sh" &&
 
-    ## Finalizando instalação #######################
+## Finalizando instalação #######################
     source "$ESNx_ASSETS/source/final_touches.sh"

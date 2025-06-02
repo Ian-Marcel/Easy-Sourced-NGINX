@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
 dnf_tasks=(
-    "sudo dnf check-upgrade --refresh --quiet"
-    "sudo dnf upgrade --assumeyes --quiet"
-    "sudo dnf group --assumeyes --quiet install development-tools"
+    "sudo dnf upgrade --refresh --quiet --assumeyes"
+    "sudo dnf --assumeyes --quiet group install development-tools"
     "pcre"
     "zlib"
     "openssl"

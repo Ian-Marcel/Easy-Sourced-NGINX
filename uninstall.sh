@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euo pipefail # Sair em caso de erro e falha em variáveis ​​não definidas
+set -euo pipefail
 
 NC='\033[0m' # No Color
 BCYAN='\033[1;36m'
@@ -10,14 +10,29 @@ BRED='\033[1;31m'
 
 trap 'echo -e "❌ ${BYELLOW}Error occurred! ${BCYAN}Exiting...${NC}"' ERR
 
-sudo systemctl disable --now nginx.service 
-    sudo rm -rf /usr/lib/nginx \
-        /etc/nginx \
-        /var/log/nginx \
-        /var/cache/nginx \
-        /var/www/nginx 
-    sudo rm -f /usr/sbin/nginx \
-        /var/run/nginx.pid \
-        /var/run/nginx.lock \
-        /etc/systemd/system/nginx.service 
-    sudo systemctl daemon-reload
+rm_tasks=(
+	"sudo systemctl disable --now nginx.service"
+	"/usr/lib/nginx"
+	"/etc/nginx"
+	"/var/log/nginx"
+	"/var/cache/nginx"
+	"/var/www/nginx"
+	"/usr/sbin/nginx"
+	"/var/run/nginx.pid"
+	"/var/run/nginx.lock"
+	"/etc/systemd/system/nginx.service"
+	"sudo systemctl daemon-reload"
+)
+    
+total_tasks=$(echo "${!rm_tasks[@]}" | awk '{ print $NF }') # THE NUMBER 0 COUNTS!!!
+
+for current_task_index in "${!rm_tasks[@]}"; do
+	if [[ "${rm_tasks[$current_task_index]}" = sudo* ]]; then
+		show_progress "$current_task_index" "$total_tasks"
+		${rm_tasks[$current_task_index]} &>/dev/null
+	else
+		show_progress "$current_task_index" "$total_tasks"
+		sudo rm -rf "${rm_tasks[$current_task_index]}"
+	fi
+done
+
