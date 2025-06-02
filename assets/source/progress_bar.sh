@@ -21,5 +21,9 @@ show_progress() {
 
     # output the bar
     echo -ne "\rProgress : [${done_sub_bar}${todo_sub_bar}] ${percent}%"
+
+	if [ "$curr" -eq "$total" ]; then
+        echo '' 
+    fi
 }
 
