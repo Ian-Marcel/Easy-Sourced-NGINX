@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo -e "${BCYAN}Installing dependencies, ${BYELLOW}it requires root access! ${NC}"
+sudo echo -e "${BCYAN}Installing dependencies, ${BYELLOW}it requires root access! ${NC}"
 
 source "$ESNx_ASSETS"/source/progress_bar.sh
 DISTRO_ID=$(grep -w ID /etc/os-release | awk -F= '{gsub(/"/, "", $2); print $2}')
