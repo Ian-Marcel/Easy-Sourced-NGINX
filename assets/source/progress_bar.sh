@@ -6,21 +6,24 @@ bar_char_todo="-"
 bar_percentage_scale=2
 
 show_progress() {
-    current="$1"
-    total="$2"
+    local curr="$1"
+    local total="$2"
 
-    # calculate the progress in percentage 
-    percent=$(bc <<< "scale=$bar_percentage_scale; 100 * $current / $total" )
-    # The number of done and todo characters
-    done=$(bc <<< "scale=0; $bar_size * $percent / 100" )
-    todo=$(bc <<< "scale=0; $bar_size - $done" )
+    local percent=$(( 100 * curr / total ))
+    local done_slots=$(( curr * bar_size / total ))
+    local todo_slots=$(( bar_size - done_slots ))
 
-    # build the done and todo sub-bars
-    done_sub_bar=$(printf "%${done}s" | tr " " "${bar_char_done}")
-    todo_sub_bar=$(printf "%${todo}s" | tr " " "${bar_char_todo}")
+    local done_str=""
+    for ((i = 0; i < done_slots; i++)); do
+        done_str+="$bar_done_char"
+    done
+    local todo_str=""
+    for ((i = 0; i < todo_slots; i++)); do
+        todo_str+="$bar_todo_char"
+    done
 
-    # output the bar
-    echo -ne "\rProgress : [${done_sub_bar}${todo_sub_bar}] ${percent}%"
+    printf "\rProgress : [%s%s] %3d%%" \
+        "$done_str" "$todo_str" "$percent"
 
 	if [ "$curr" -eq "$total" ]; then
         echo '' 
