@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
 bar_size=40
-bar_char_done="#"
-bar_char_todo="-"
-bar_percentage_scale=2
+bar_done_char="#"
+bar_todo_char="-"
 
 show_progress() {
     local curr="$1"
