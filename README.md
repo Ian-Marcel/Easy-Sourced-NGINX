@@ -11,3 +11,7 @@ curl -sSL https://serving.duckdns.org/get/easy-sourced-nginx | bash
 git clone https://github.com/Ian-Marcel/Easy-Sourced-NGINX.git
 ```
 > A benefit of the manual installation is the possibility of customizing nginx parameters before build/compile it, edit `configure.sh` file to do so.
+
+- - -
+
+[code commentation](assets/file/COMMENTS.md)
