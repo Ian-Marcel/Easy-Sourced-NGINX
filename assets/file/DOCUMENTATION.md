@@ -1,3 +1,3 @@
-# Comments
-## assets/source/distro_dependecies_check.sh
+## Comments
+### assets/source/distro_dependecies_check.sh
 - <u>comnt-1</u>: `$total_tasks` holds the highest index (last element’s index), not the actual count of tasks. In most "$0..n$"–style loops this behaves like a total, but if your array is explicitly indexed (e.g. starts at `[1]` or has gaps), use `"${#list[@]}"` (the true length) instead.
