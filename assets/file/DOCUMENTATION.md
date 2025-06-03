@@ -7,5 +7,5 @@
 
 ## Location
 
-- comment.1: `/uninstall.sh`, `/assets/source/distro_dependecies_check.sh`
+- comment.1: [`/uninstall.sh`](/uninstall.sh), [`/assets/source/distro_dependecies_check.sh`](/assets/source/distro_dependecies_check.sh)
 
