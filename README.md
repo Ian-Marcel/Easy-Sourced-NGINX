@@ -14,4 +14,4 @@ git clone https://github.com/Ian-Marcel/Easy-Sourced-NGINX.git
 
 - - -
 
-[code commentation](assets/file/COMMENTS.md)
+[code commentation](assets/file/DOCUMENTATION.md)
