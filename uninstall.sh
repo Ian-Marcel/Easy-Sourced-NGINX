@@ -26,7 +26,10 @@ rm_tasks=(
 	"sudo systemctl daemon-reload"
 )
 
-echo -e "${BRED}Uninstalling ${BCYAN}$(sudo nginx -v)\n"
+NGINX_VERSION="$(sudo nginx -v)"
+echo -ne "${BRED}Uninstalling "
+echo -e "${BCYAN}$NGINX_VERSION${NC}\n"
+
 total_tasks=$(( ${#rm_tasks[@]} - 1 )) # comment.1
 for current_task_index in "${!rm_tasks[@]}"; do
 	if [[ "${rm_tasks[$current_task_index]}" = sudo* ]]; then
