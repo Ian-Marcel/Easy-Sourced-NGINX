@@ -11,7 +11,7 @@
 	--lock-path=/var/run/nginx.lock \
 	--user=nginx \
 	--group=nginx \
-	--build=nginx-"$DISTRO_ID"_1.28.0 \
+	--build=easy_sourced_1.28.0-"$DISTRO_ID" \
 	--builddir=nginx-1.28.0 \
 	--with-threads \
 	--with-file-aio \

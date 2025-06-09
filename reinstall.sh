@@ -12,10 +12,9 @@ trap 'echo -e "❌ ${BYELLOW}Error occurred! ${BCYAN}Exiting...${NC}"' ERR
 
 echo -e "${BCYAN}Backing up current nginx configuration folder, ${BYELLOW}it requires root access! ${NC}"
 sudo tar -zcf nginx-backup.tar.gz -C /etc/ nginx
-sudo chown $USER:$USER nginx-backup.tar.gz
 source uninstall.sh
 source install.sh
 sudo rm -r /etc/nginx
-tar -zxf nginx-backup.tar.gz
+sudo tar -zxf nginx-backup.tar.gz
 sudo mv nginx /etc/
-rm nginx-backup.tar.gz
+sudo rm nginx-backup.tar.gz

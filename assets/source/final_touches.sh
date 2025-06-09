@@ -5,7 +5,7 @@ sudo cp "$ESNx_ASSETS/file/nginx.service" /usr/lib/systemd/system/ &&
     sudo systemctl daemon-reload &&
     sudo systemctl enable --now nginx &&
     # Adicionando nginx ao grupo www-data
-    if ! sudo usermod -aG www-data nginx; then
+    if ! sudo usermod -aG www-data nginx &> /dev/null ; then
         sudo usermod -aG apache nginx
     fi &&
 
