@@ -7,8 +7,8 @@
 	--conf-path=/etc/nginx/nginx.conf \
 	--error-log-path=/var/log/nginx/error.log \
 	--http-log-path=/var/log/nginx/access.log \
-	--pid-path=/run/nginx/nginx.pid \
-	--lock-path=/run/nginx/nginx.lock \
+	--pid-path=/var/run/nginx.pid \
+	--lock-path=/var/run/nginx.lock \
 	--user=nginx \
 	--group=nginx \
 	--build=nginx-"$DISTRO_ID"_1.28.0 \
