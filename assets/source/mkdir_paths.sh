@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-sudo mkdir -p /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx &&
-    sudo chown -R nginx:nginx /usr/lib/nginx/modules /etc/nginx /var/log/nginx /var/cache/nginx
+sudo mkdir -p /etc/nginx /usr/lib/nginx/modules /var/log/nginx/ /run/nginx/ /var/cache/nginx/
+sudo chown -R nginx:nginx /etc/nginx /usr/lib/nginx/modules /var/log/nginx/ /run/nginx/ /var/cache/nginx/
