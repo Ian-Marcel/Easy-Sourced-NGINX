@@ -22,14 +22,14 @@ if [ "$DISTRO_ID" = "debian" ] || [ "$DISTRO_ID" = "ubuntu" ]; then
 elif [ "$DISTRO_ID" = "fedora" ] || [ "$DISTRO_ID" = "rocky" ] || [ "$DISTRO_ID" = "almalinux" ]; then
 	echo -e "\t${BGREEN}Red Hat family ( Fedora, RHEL, CentOS ... ) ${NC} \n"
 	source "$ESNx_ASSETS"/file/rpm_dependecies.sh
-	total_tasks=$(( ${#dnf_tasks[@]} - 1 )) # comment.1
-	for current_task_index in "${!dnf_tasks[@]}"; do
-		if [[ "${dnf_tasks[$current_task_index]}" = sudo* ]]; then
+	total_tasks=$(( ${#yum_tasks[@]} - 1 )) # comment.1
+	for current_task_index in "${!yum_tasks[@]}"; do
+		if [[ "${yum_tasks[$current_task_index]}" = sudo* ]]; then
 			show_progress "$current_task_index" "$total_tasks"
-			${dnf_tasks[$current_task_index]} &>/dev/null
+			${yum_tasks[$current_task_index]} &>/dev/null
 		else
 			show_progress "$current_task_index" "$total_tasks"
-			sudo dnf install --assumeyes --quiet "${dnf_tasks[$current_task_index]}" &>/dev/null
+			sudo yum install --assumeyes --quiet "${yum_tasks[$current_task_index]}" &>/dev/null
 		fi
 	done
 fi

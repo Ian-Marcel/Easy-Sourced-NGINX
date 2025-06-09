@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
 
 dnf_tasks=(
-    "sudo dnf upgrade --refresh --quiet --assumeyes"
-    "sudo dnf --assumeyes --quiet group install development-tools"
+    "sudo yum upgrade --refresh --quiet --assumeyes"
+    "sudo yum --assumeyes --quiet group install development-tools"
     "pcre"
     "zlib"
     "openssl"
     "libxml2"
     "libxslt"
+	"geoip"
     "pcre-devel"
     "zlib-devel"
     "openssl-devel"
     "libxml2-devel"
     "libxslt-devel"
+	"geoip-devel"
 )

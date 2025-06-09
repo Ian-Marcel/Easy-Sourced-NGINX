@@ -11,9 +11,13 @@ apt_tasks=(
     "libxml2"
     "libxslt1.1"
     "libgd-dev"
+	"geoip-bin"
+	"geoip-database"
+	"libgeoip1"
     "libpcre3-dev"
     "zlib1g-dev"
     "libssl-dev"
     "libxml2-dev"
     "libxslt1-dev"
+	"libgeoip-dev"
 )
