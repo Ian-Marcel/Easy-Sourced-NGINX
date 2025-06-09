@@ -11,6 +11,8 @@ BRED='\033[1;31m'
 trap 'echo -e "❌ ${BYELLOW}Error occurred! ${BCYAN}Exiting...${NC}"' ERR
 
 echo -e "${BCYAN}Backing up current nginx configuration folder, ${BYELLOW}it requires root access! ${NC}"
+sudo -v
+
 sudo tar -zcf nginx-backup.tar.gz -C /etc/ nginx
 source uninstall.sh
 source install.sh
