@@ -10,7 +10,7 @@ while true; do
             if [[ "$NGINX_BETTER_PREFIX" = Y ]] || [[ "$NGINX_BETTER_PREFIX" = Yes ]]; then
                 echo -e "\n${BCYAN}Ok, applying new configuration... ${NC}"
                 sudo rm -rf /etc/nginx &&
-                    tar -zxf "$ESNx_ASSETS/file/nginx.tar.gz" &&
+                    sudo tar -zxf "$ESNx_ASSETS/file/nginx.tar.gz" &&
                     sudo cp -r nginx /etc/
                 sudo mkdir -p /var/www/nginx &&
                     sudo cp "$ESNx_ASSETS/file/index.html" /var/www/nginx/ &&
