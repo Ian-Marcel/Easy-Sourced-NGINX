@@ -26,8 +26,8 @@ rm_tasks=(
 	"sudo systemctl daemon-reload"
 )
 
-echo -en "${BRED}Uninstalling ${NC}"
-echo -e "${BCYAN}$(sudo nginx -v)${NC}\n"
+echo -en "${BRED}Uninstalling${NC}"
+echo -e "${BCYAN}$(sudo nginx -v | awk -F ":" '{ print $2 }')${NC}\n"
 
 total_tasks=$(( ${#rm_tasks[@]} - 1 )) # comment.1
 for current_task_index in "${!rm_tasks[@]}"; do
