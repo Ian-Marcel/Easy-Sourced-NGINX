@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-yum_tasks=(
-	"sudo yum upgrade --refresh --quiet --assumeyes"
-	"sudo yum --assumeyes --quiet group install development-tools"
+dnf_tasks=(
+	"sudo dnf upgrade --refresh --quiet --assumeyes"
+	"sudo dnf --assumeyes --quiet group install development-tools"
 	"pcre"
 	"zlib"
 	"openssl"
