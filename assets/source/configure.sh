@@ -2,7 +2,7 @@
 
 ./configure \
 	--prefix=/etc/nginx \
-	--sbin-path=/usr/bin/nginx \
+	--sbin-path=/usr/sbin/nginx \
 	--modules-path=/usr/lib/nginx/modules \
 	--conf-path=/etc/nginx/nginx.conf \
 	--error-log-path=/var/log/nginx/error.log \
