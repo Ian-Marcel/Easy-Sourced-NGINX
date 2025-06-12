@@ -24,7 +24,7 @@ show_progress() {
 		"$done_str" "$todo_str" "$percent"
 
 	if [ "$curr" -eq "$total" ]; then
-		echo '' 
+		printf "\n"	
 	fi
 }
 
