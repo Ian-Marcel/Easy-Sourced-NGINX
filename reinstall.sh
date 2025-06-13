@@ -14,8 +14,10 @@ echo -e "${BCYAN}Backing up current nginx configuration folder, ${BYELLOW}it req
 sudo -v
 
 sudo tar -zcf nginx-backup.tar.gz -C /etc/ nginx
+
 source uninstall.sh
 source install.sh
+
 sudo rm -r /etc/nginx
 sudo tar -zxf nginx-backup.tar.gz
 sudo mv nginx /etc/
