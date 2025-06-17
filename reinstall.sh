@@ -21,5 +21,5 @@ source install.sh
 
 sudo rm -r /etc/nginx
 sudo tar -zxf nginx-backup.tar.gz
-sudo mv nginx /etc/
-sudo rm nginx-backup.tar.gz
+sudo cp -a nginx /etc/
+sudo rm -rf nginx nginx-backup.tar.gz
