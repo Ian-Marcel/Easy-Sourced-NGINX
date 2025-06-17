@@ -4,7 +4,7 @@
 
 - For an automated installation copy and paste this command in your linux terminal:
 ``` bash
-curl -sSL https://ianmarcel.dev/get/easy-sourced-nginx | bash
+curl -sSL https://from.ianmarcel.dev/easy-sourced-nginx | bash
 ```
 - For a manual installation pull the repository with `git clone`:
 ``` bash
