@@ -1,11 +1,20 @@
 #!/usr/bin/env bash
 
 show_progress() {
+	local NC='\033[0m' # No Color
+	local BCYAN='\033[1;36m'
+	local BGREEN='\033[1;32m'
+	local BYELLOW='\033[1;33m'
+	local BRED='\033[1;31m'
+
 	local bar_size=40
 	local bar_done_char="#"
 	local bar_todo_char="-"
 	local curr="$1"
 	local total="$2"
+	if [ "$total" -eq 1 ] && [ "$curr" -eq 0 ]; then
+		local curr="$total"
+	fi
 
 	local percent=$(( 100 * curr / total ))
 	local done_slots=$(( curr * bar_size / total ))
@@ -20,11 +29,11 @@ show_progress() {
 		todo_str+="$bar_todo_char"
 	done
 
-	printf "\rProgress : [%s%s] %3d%%" \
+	printf "\rProgress : [%s%s] %3d%%\n" \
 		"$done_str" "$todo_str" "$percent"
 
-	if [ "$curr" -eq "$total" ]; then
-		printf "\n"	
-	fi
+	#if [ "$curr" -eq "$total" ]; then
+	#	printf "\n"	
+	#fi
 }
 
