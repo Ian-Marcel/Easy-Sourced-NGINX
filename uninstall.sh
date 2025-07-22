@@ -2,7 +2,7 @@
 
 #### Error detector
 set -euo pipefail
-trap 'printf "\033[1;33mOps! \033[1;31m\b Something went wrong! \n\033[1;34mExiting...\033[0m\n' INT TERM ERR
+trap 'printf "\033[1;33mOps! \033[1;31m\b Something went wrong! \n\033[1;34mExiting...\033[0m\n"' INT TERM ERR
 ############
 
 NC='\033[0m'			# No Color
