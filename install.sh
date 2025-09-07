@@ -42,10 +42,10 @@ if [ "$DISTRO_ID" = "debian" ] || [ "$DISTRO_ID" = "ubuntu" ]; then
     total_tasks=$((${#apt_tasks[@]} - 1)) # comment.1
     for current_task_index in "${!apt_tasks[@]}"; do
         if [[ "${apt_tasks[$current_task_index]}" = sudo* ]]; then
-            show_progress "$current_task_index" "$total_tasks"
+            progress_bar_by_task_completion "$current_task_index" "$total_tasks"
             ${apt_tasks[$current_task_index]} &>/dev/null
         else
-            show_progress "$current_task_index" "$total_tasks"
+            progress_bar_by_task_completion "$current_task_index" "$total_tasks"
             sudo apt-get --assume-yes install "${apt_tasks[$current_task_index]}" &>/dev/null
         fi
     done
@@ -56,10 +56,10 @@ elif [ "$DISTRO_ID" = "fedora" ] || [ "$DISTRO_ID" = "rocky" ] || [ "$DISTRO_ID"
     total_tasks=$((${#dnf_tasks[@]} - 1)) # comment.1
     for current_task_index in "${!dnf_tasks[@]}"; do
         if [[ "${dnf_tasks[$current_task_index]}" = sudo* ]]; then
-            show_progress "$current_task_index" "$total_tasks"
+            progress_bar_by_task_completion "$current_task_index" "$total_tasks"
             ${dnf_tasks[$current_task_index]} &>/dev/null
         else
-            show_progress "$current_task_index" "$total_tasks"
+            progress_bar_by_task_completion "$current_task_index" "$total_tasks"
             sudo dnf install --assumeyes --quiet "${dnf_tasks[$current_task_index]}" &>/dev/null
         fi
     done
