@@ -1,4 +1,4 @@
-<img title="Easy-Sourced-NGINX_Banner" src="assets/file/Easy-Sourced-NGINX_Banner.png" width="500">
+<img title="Easy-Sourced-NGINX_Banner" src="app/files/Easy-Sourced-NGINX_Banner.png" width="500">
 
 ---
 
