@@ -145,13 +145,13 @@ cd nginx-1.28.0 || exit
     --add-module=../nginx-dav-ext-module-4.0.1 \
     --add-module=../headers-more-nginx-module-0.38 \
     &>"$LOGDIR/configure.log" &
-wait_with_spinner_loading "Package and modules obtained! Configuring NGINX..."
+wait_with_spinner_loading "Configuring NGINX..."
 
 make &>"$LOGDIR/make.log" &
-wait_with_spinner_loading "NGINX configured! Compiling NGINX..."
+wait_with_spinner_loading "Compiling NGINX..."
 
 sudo make install &>"$LOGDIR/make-install.log" &
-wait_with_spinner_loading "NGINX compiled! Installing NGINX..."
+wait_with_spinner_loading "Installing NGINX..."
 
 # Usar prefixo otimizado (OPCIONAL)
 while true; do
