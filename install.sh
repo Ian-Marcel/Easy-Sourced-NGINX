@@ -159,17 +159,18 @@ while true; do
         NGINX_BETTER_PREFIX='No'
         break
     else
-        read -rp $'\033[1;33mWe offer an optimized nginx configuration, do you want it applied? \033[1;36m[(Y)es/(n)o]: \033[1;0m' NGINX_BETTER_PREFIX
+        read -rp $'\n\033[1;33mWe offer an optimized nginx configuration, do you want it applied? \033[1;36m[(Y)es/(n)o]: \033[1;0m' NGINX_BETTER_PREFIX
         case "$NGINX_BETTER_PREFIX" in
         Y | y | Yes | yes)
-            echo -e "\n${BCYAN}Ok, applying new configuration... ${NC}"
+            echo -e "${BCYAN}Ok, applying new configuration... ${NC}"
             sudo rm -rf /etc/nginx
             sudo tar -zxf "$CONTENTDIR/nginx.tar.gz"
             sudo cp -r nginx /etc/
             sudo mkdir -p /var/www/nginx
             sudo cp "$CONTENTDIR"/www/{index.html,info.php} /var/www/nginx/
             sudo chown -R nginx:nginx /var/www/nginx
-            echo -e "${BGREEN}New configuration applied! ${NC} \n"
+            sleep 1s
+            echo -e "${BGREEN}New configuration applied! ${NC}"
             break
             ;;
         N | n | No | no)
