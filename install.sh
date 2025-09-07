@@ -201,7 +201,7 @@ rm -rf tmp
 ## Mensagem pós-instalação #######################
 case "$NGINX_BETTER_PREFIX" in
 Y | y | Yes | yes)
-    printf "${BGREEN}INSTALLATION COMPLETED SUCCESSFULLY!
+    printf "\n${BGREEN}INSTALLATION COMPLETED SUCCESSFULLY!
     \r\n${BCYAN}Since you have chosen the optimized configuration, visit and read the
     \rcomments in ${BYELLOW}\"/etc/nginx/sites-available/default.conf\"${BCYAN} and
     \r${BYELLOW}\"/etc/nginx/nginx.conf\"${BCYAN}, make the changes and restart nginx with: 
