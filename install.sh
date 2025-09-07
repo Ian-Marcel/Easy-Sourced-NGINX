@@ -96,7 +96,6 @@ done
 
 ## Instalando NGINX #######################
 ## Construindo, compilando e instalando a configuração NGINX #######################
-echo -e "\n${BGREEN}Package and modules obtained! ${BCYAN}Configuring NGINX... ${NC} \n"
 cd nginx-1.28.0 || exit
 
 ./configure \
@@ -146,12 +145,13 @@ cd nginx-1.28.0 || exit
     --add-module=../nginx-dav-ext-module-4.0.1 \
     --add-module=../headers-more-nginx-module-0.38 \
     &>"$LOGDIR/configure.log"
+wait_with_spinner_loading "Package and modules obtained! Configuring NGINX..."
 
 make &>"$LOGDIR/make.log" &
-wait_with_spinner_loading "\033[1;32mNGINX configured! \033[1;36mCompiling NGINX... \033[0m"
+wait_with_spinner_loading "NGINX configured! Compiling NGINX..."
 
 sudo make install &>"$LOGDIR/make-install.log" &
-wait_with_spinner_loading "\033[1;32mNGINX compiled! \033[1;36mInstalling NGINX... \033[0m"
+wait_with_spinner_loading "NGINX compiled! Installing NGINX..."
 
 # Usar prefixo otimizado (OPCIONAL)
 while true; do
