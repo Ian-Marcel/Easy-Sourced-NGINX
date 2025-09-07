@@ -148,10 +148,10 @@ cd nginx-1.28.0 || exit
     &>"$LOGDIR/configure.log"
 
 make &>"$LOGDIR/make.log" &
-wait_with_spinner_loading "NGINX configured! Compiling NGINX..."
+wait_with_spinner_loading "\033[1;32mNGINX configured! \033[1;36mCompiling NGINX... \033[0m"
 
 sudo make install &>"$LOGDIR/make-install.log" &
-wait_with_spinner_loading "NGINX compiled! Installing NGINX..."
+wait_with_spinner_loading "\033[1;32mNGINX compiled! \033[1;36mInstalling NGINX... \033[0m"
 
 # Usar prefixo otimizado (OPCIONAL)
 while true; do
