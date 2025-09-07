@@ -188,7 +188,7 @@ done
 # Criando serviço para nginx
 sudo cp "$CONTENTDIR/systemd/nginx.service" /usr/lib/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable --now nginx
+sudo systemctl enable --now --quiet nginx
 # Adicionando nginx ao grupo www-data
 if ! sudo usermod -aG www-data nginx &>/dev/null; then
     sudo usermod -aG apache nginx
@@ -208,6 +208,6 @@ Y | y | Yes | yes)
     \r\n${BYELLOW}\"sudo systemctl restart nginx\" ${NC}\n"
     ;;
 N | n | No | no)
-    echo -e "${BGREEN}INSTALLATION COMPLETED SUCCESSFULLY! ${NC}"
+    echo -e "\n${BGREEN}INSTALLATION COMPLETED SUCCESSFULLY! ${NC}"
     ;;
 esac
