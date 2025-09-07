@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+NC='\033[0m'         # No Color
+BGREEN='\033[1;32m'  # Success Color
+BlBLUE='\033[1;34m'  # Info Color
+BCYAN='\033[1;36m'   # Link Color
+BYELLOW='\033[1;33m' # Warning Color
+BRED='\033[1;31m'    # Error Color

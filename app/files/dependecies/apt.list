@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+apt_tasks=(
+    "sudo apt update --assume-yes"
+    "sudo apt upgrade --assume-yes"
+    "build-essential"
+    "libgd3"
+    "libpcre3"
+    "zlib1g"
+    "libssl3"
+    "libxml2"
+    "libxslt1.1"
+    "libgd-dev"
+    "geoip-bin"
+    "geoip-database"
+    "libgeoip1"
+    "libpcre3-dev"
+    "zlib1g-dev"
+    "libssl-dev"
+    "libxml2-dev"
+    "libxslt1-dev"
+    "libgeoip-dev"
+)
