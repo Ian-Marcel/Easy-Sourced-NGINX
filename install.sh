@@ -144,15 +144,14 @@ cd nginx-1.28.0 || exit
     --with-pcre-jit \
     --with-compat \
     --add-module=../nginx-dav-ext-module-4.0.1 \
-    --add-module=../headers-more-nginx-module-0.38
+    --add-module=../headers-more-nginx-module-0.38 \
+    &>"$LOGDIR/configure.log"
 
-# echo -e "${BGREEN}NGINX configured! ${BCYAN}Compiling NGINX... ${NC} \n"
 make &>"$LOGDIR/make.log" &
-wait_with_spinner_loading "${BGREEN}NGINX configured! ${BCYAN}Compiling NGINX... ${NC}"
+wait_with_spinner_loading "NGINX configured! Compiling NGINX..."
 
-# echo -e "${BGREEN}NGINX compiled! ${BCYAN}Installing NGINX... ${NC} \n"
 sudo make install &>"$LOGDIR/make-install.log" &
-wait_with_spinner_loading "${BGREEN}NGINX compiled! ${BCYAN}Installing NGINX... ${NC}"
+wait_with_spinner_loading "NGINX compiled! Installing NGINX..."
 
 # Usar prefixo otimizado (OPCIONAL)
 while true; do
@@ -187,7 +186,7 @@ done
 
 ## Finalizando instalação #######################
 # Criando serviço para nginx
-sudo cp "$CONTENTDIR/nginx.service" /usr/lib/systemd/system/
+sudo cp "$CONTENTDIR/systemd/nginx.service" /usr/lib/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable --now nginx
 # Adicionando nginx ao grupo www-data
