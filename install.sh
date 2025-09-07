@@ -144,7 +144,7 @@ cd nginx-1.28.0 || exit
     --with-compat \
     --add-module=../nginx-dav-ext-module-4.0.1 \
     --add-module=../headers-more-nginx-module-0.38 \
-    &>"$LOGDIR/configure.log"
+    &>"$LOGDIR/configure.log" &
 wait_with_spinner_loading "Package and modules obtained! Configuring NGINX..."
 
 make &>"$LOGDIR/make.log" &
