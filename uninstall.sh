@@ -5,6 +5,26 @@ set -euo pipefail
 trap 'printf "\033[1;33mOps! \033[1;31m\b Something went wrong! \n\033[1;34mExiting...\033[0m\n"' INT TERM ERR
 ############
 
+ROOTDIR="$PWD"
+
+if [ "$(basename $ROOTDIR)" != "Easy-Sourced-NGINX" ]; then
+    printf "(Error):\t Script isn't being executed in the correct place! \n"
+    sleep 0.5s
+    printf "(Info):\t\t Executed in: %s \n" "$PWD"
+    sleep 3s
+    exit 1
+fi
+
+mkdir -p tmp logs
+
+APPDIR="$ROOTDIR/app"
+WORKDIR="$ROOTDIR/tmp"
+
+LIBDIR="$APPDIR/lib"
+CONTENTDIR="$APPDIR/files"
+
+LOGDIR="$ROOTDIR/logs"
+
 source "$LIBDIR"/colors
 source "$LIBDIR"/wait_with_spinner_loading
 source "$LIBDIR"/progress_bar_by_task_completion
@@ -36,3 +56,4 @@ for current_task_index in "${!rm_tasks[@]}"; do
         sudo rm -rf "${rm_tasks[$current_task_index]}"
     fi
 done
+sudo rm tmp.old
