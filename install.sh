@@ -8,22 +8,22 @@ trap 'printf "\033[1;33mOps! \033[1;31m\b Something went wrong! \n\033[1;34mExit
 ROOTDIR="$PWD"
 
 if [ "$(basename $ROOTDIR)" != "Easy-Sourced-NGINX" ]; then
-    printf "(Error):\t Script isn't being executed in the correct place! \n"
-    sleep 0.5s
     printf "(Info):\t\t Executed in: %s \n" "$PWD"
+    sleep 0.5s
+    printf "(Error):\t Script isn't being executed in the correct place! \n"
     sleep 3s
     exit 1
 fi
 
 mkdir -p tmp logs
 
-APPDIR="$ROOTDIR/app"
-WORKDIR="$ROOTDIR/tmp"
+export APPDIR="$ROOTDIR/app"
+export WORKDIR="$ROOTDIR/tmp"
 
-LIBDIR="$APPDIR/lib"
-CONTENTDIR="$APPDIR/files"
+export LIBDIR="$APPDIR/lib"
+export CONTENTDIR="$APPDIR/files"
 
-LOGDIR="$ROOTDIR/logs"
+export LOGDIR="$ROOTDIR/logs"
 
 source "$LIBDIR"/colors
 source "$LIBDIR"/wait_with_spinner_loading
@@ -33,7 +33,7 @@ cd "$WORKDIR"
 ## Obtendo NGINX, dependências e modulos extras não oficiais #######################
 # Checando distribuição para dependências
 echo -e "${BCYAN}Installing dependencies, ${BYELLOW}it requires root access! ${NC}"
-DISTRO_ID=$(grep -w ID /etc/os-release | awk -F= '{gsub(/"/, "", $2); print $2}')
+export DISTRO_ID=$(grep -w ID /etc/os-release | awk -F= '{gsub(/"/, "", $2); print $2}')
 echo -ne "\n\b ${BCYAN}System: ${NC}"
 if [ "$DISTRO_ID" = "debian" ] || [ "$DISTRO_ID" = "ubuntu" ]; then
     echo -e "\t${BGREEN}Debian family ( Debian, Ubuntu, Raspberry Pi OS ... ) ${NC} \n "
@@ -69,22 +69,21 @@ fi
 if ! grep -q nginx /etc/passwd; then
     echo -e "\n${BYELLOW}Nginx user NOT FOUND! Creating user... ${NC} "
     sudo useradd -d /nonexistent -s /bin/false -r -U nginx
+    sleep 2.5s
     echo -e "${BGREEN}Nginx user CREATED successfully! ${NC} \n"
 else
     echo -e "\n${BGREEN}Nginx user FOUND! ${NC}\n"
 fi
 
 # Criando caminhos do nginx
-sudo mkdir -p \
-    /etc/nginx \
-    /var/log/nginx/ \
-    /var/cache/nginx/ \
-    /usr/lib/nginx/modules
-sudo chown -R nginx:nginx \
-    /etc/nginx \
-    /var/log/nginx/ \
-    /var/cache/nginx/ \
-    /usr/lib/nginx/modules
+NGINX_PATHS="
+/etc/nginx
+/var/log/nginx/
+/var/cache/nginx/
+/usr/lib/nginx/modules
+"
+sudo mkdir -p $NGINX_PATHS
+sudo chown -R nginx:nginx $NGINX_PATHS
 
 # Obtendo o pacote NGINX e módulos extras não oficiais
 echo -e "${BGREEN}Dependencies satisfied. ${BCYAN}Getting NGINX package and extra unofficial modules... ${NC} \n"
