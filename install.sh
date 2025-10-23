@@ -141,8 +141,8 @@ cd nginx-1.28.0 || exit
     --with-stream_ssl_preread_module \
     --with-pcre-jit \
     --with-compat \
-    --add-module=../nginx-dav-ext-module-4.0.1 \
-    --add-module=../headers-more-nginx-module-0.38 \
+    --add-dynamic-module=../nginx-dav-ext-module-4.0.1 \
+    --add-dynamic-module=../headers-more-nginx-module-0.38 \
     &>"$LOGDIR/configure.log" &
 wait_with_spinner_loading "Configuring NGINX..."
 
