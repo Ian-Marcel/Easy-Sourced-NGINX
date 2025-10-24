@@ -1,5 +1,4 @@
-<img title="Easy-Sourced-NGINX_Banner" src="app/files/Easy-Sourced-NGINX_Banner.png" width="500">
-
+![banner](app/files/Easy-Sourced-NGINX_Banner)
 ---
 
 - For an automated installation copy and paste this command in your linux terminal:
