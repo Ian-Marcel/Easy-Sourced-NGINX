@@ -95,7 +95,7 @@ done
 
 ## Instalando NGINX #######################
 ## Construindo, compilando e instalando a configuração NGINX #######################
-cd nginx-1.28.0 || exit
+cd nginx-1.29.2 || exit
 
 ./configure \
     --prefix=/etc/nginx \
@@ -108,8 +108,8 @@ cd nginx-1.28.0 || exit
     --lock-path=/var/run/nginx.lock \
     --user=nginx \
     --group=nginx \
-    --build=easy_sourced_1.28.0-"$DISTRO_ID" \
-    --builddir=nginx-1.28.0 \
+    --build=easy_sourced_1.29.2-"$DISTRO_ID" \
+    --builddir=nginx-1.29.2 \
     --with-threads \
     --with-file-aio \
     --with-http_ssl_module \
@@ -141,8 +141,11 @@ cd nginx-1.28.0 || exit
     --with-stream_ssl_preread_module \
     --with-pcre-jit \
     --with-compat \
-    --add-dynamic-module=../nginx-dav-ext-module-4.0.1 \
+    --add-dynamic-module=../ngx_devel_kit-0.3.3 \
+    --add-dynamic-module=../lua-nginx-module-0.10.28 \
+    --add-dynamic-module=../stream-lua-nginx-module-0.0.16 \
     --add-dynamic-module=../headers-more-nginx-module-0.38 \
+    --add-dynamic-module=../nginx-dav-ext-module-4.0.1 \
     &>"$LOGDIR/configure.log" &
 wait_with_spinner_loading "Configuring NGINX..."
 
