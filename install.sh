@@ -142,8 +142,6 @@ cd nginx-1.29.2 || exit
     --with-pcre-jit \
     --with-compat \
     --add-dynamic-module=../ngx_devel_kit-0.3.3 \
-    --add-dynamic-module=../lua-nginx-module-0.10.28 \
-    --add-dynamic-module=../stream-lua-nginx-module-0.0.16 \
     --add-dynamic-module=../headers-more-nginx-module-0.39 \
     --add-dynamic-module=../nginx-dav-ext-module-4.0.1 \
     &>"$LOGDIR/configure.log" &
