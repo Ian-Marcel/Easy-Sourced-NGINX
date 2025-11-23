@@ -95,7 +95,7 @@ done
 
 ## Instalando NGINX #######################
 ## Construindo, compilando e instalando a configuração NGINX #######################
-cd nginx-1.29.2 || exit
+cd nginx-1.29.3 || exit
 
 ./configure \
     --prefix=/etc/nginx \
@@ -108,8 +108,8 @@ cd nginx-1.29.2 || exit
     --lock-path=/var/run/nginx.lock \
     --user=nginx \
     --group=nginx \
-    --build=easy_sourced_1.29.2-"$DISTRO_ID" \
-    --builddir=nginx-1.29.2 \
+    --build=easy_sourced_1.29.3-"$DISTRO_ID" \
+    --builddir=nginx-1.29.3 \
     --with-threads \
     --with-file-aio \
     --with-http_ssl_module \
