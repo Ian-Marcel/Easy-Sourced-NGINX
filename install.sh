@@ -190,10 +190,13 @@ done
 sudo cp "$CONTENTDIR/systemd/nginx.service" /usr/lib/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable --now --quiet nginx
-# Adicionando nginx ao grupo www-data
-if ! sudo usermod -aG www-data nginx &>/dev/null; then
-    sudo usermod -aG apache nginx
-fi
+# Adicionando nginx ao grupo www-data ou similar
+for group in www-data apache httpd; do
+    if getent group "$group" &>/dev/null; then
+        sudo usermod -aG "$group" username
+        break
+    fi
+done
 
 ## Apagando dados residuais #######################
 cd "$ROOTDIR"
