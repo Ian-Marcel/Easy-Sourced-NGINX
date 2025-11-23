@@ -193,7 +193,7 @@ sudo systemctl enable --now --quiet nginx
 # Adicionando nginx ao grupo www-data ou similar
 for group in www-data apache httpd; do
     if getent group "$group" &>/dev/null; then
-        sudo usermod -aG "$group" username
+        sudo usermod -aG "$group" nginx
         break
     fi
 done
