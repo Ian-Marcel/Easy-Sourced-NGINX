@@ -154,38 +154,6 @@ wait_with_spinner_loading "Compiling NGINX..."
 sudo make install &>"$LOGDIR/make-install.log" &
 wait_with_spinner_loading "Installing NGINX..."
 
-# Usar prefixo otimizado (OPCIONAL)
-while true; do
-    if [ "${CURL_ESX-}" ] && [ "$CURL_ESX" -eq 2 ]; then
-        NGINX_BETTER_PREFIX='No'
-        break
-    else
-        read -rp $'\n\033[1;33mWe offer an optimized nginx configuration, do you want it applied? \033[1;36m[(Y)es/(n)o]: \033[1;0m' NGINX_BETTER_PREFIX
-        case "$NGINX_BETTER_PREFIX" in
-        Y | y | Yes | yes)
-            echo -e "${BCYAN}Ok, applying new configuration... ${NC}"
-            sudo rm -rf /etc/nginx
-            sudo tar -zxf "$CONTENTDIR/nginx.tar.gz"
-            sudo cp -r nginx /etc/
-            sudo mkdir -p /var/www/nginx
-            sudo cp "$CONTENTDIR"/www/{index.html,info.php} /var/www/nginx/
-            sudo chown -R nginx:nginx /var/www/nginx
-            sleep 1s
-            echo -e "${BGREEN}New configuration applied! ${NC}"
-            break
-            ;;
-        N | n | No | no)
-            echo -e "\n${BCYAN}Ok, continuing with default configuration! ${NC} \n"
-            break
-            ;;
-        *)
-            echo -e "${BYELLOW}Please answer with (Y)es or (N)o. ${NC}"
-            ;;
-        esac
-
-    fi
-done
-
 ## Finalizando instalação #######################
 # Criando serviço para nginx
 sudo cp "$CONTENTDIR/systemd/nginx.service" /usr/lib/systemd/system/
