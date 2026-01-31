@@ -68,7 +68,12 @@ fi
 # Checando usuário
 if ! grep -q nginx /etc/passwd; then
     echo -e "\n${BYELLOW}Nginx user NOT FOUND! Creating user... ${NC} "
-    sudo useradd -d /nonexistent -s /bin/false -r -U nginx
+    sudo useradd nginx \
+        --system \
+        --uid 200 \
+        --no-create-home \
+        --home-dir /var/www/ \
+        --shell /usr/bin/nologin
     sleep 2.5s
     echo -e "${BGREEN}Nginx user CREATED successfully! ${NC} \n"
 else
